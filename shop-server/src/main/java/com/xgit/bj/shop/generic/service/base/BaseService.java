@@ -2,16 +2,15 @@ package com.xgit.bj.shop.generic.service.base;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.xgit.bj.auth.user.dao.mapper.base.BaseMapper;
 import com.xgit.bj.core.rsp.PageCommonVO;
 import com.xgit.bj.core.rsp.SearchCommonVO;
 import com.xgit.bj.shop.framework.consts.ErrorCode;
+import com.xgit.bj.shop.generic.dao.mapper.base.BaseMapper;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public class BaseService<V, D> extends BaseTransVODOService<V, D> {
-    BaseMapper<V, D> baseMapper;
+public class BaseService<V, D> extends BaseTransVODOService<V, D> { BaseMapper<V, D> baseMapper;
 
     protected BaseService(Class<V> vClass, Class<D> dClass) {
         super(vClass, dClass);

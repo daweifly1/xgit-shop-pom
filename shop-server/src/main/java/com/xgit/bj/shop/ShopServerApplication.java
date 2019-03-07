@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableFeignClients
+@EnableFeignClients(basePackages = {"com.xgit.bj.auth.feign"})
 public class ShopServerApplication {
     public static void main(String[] args) {
         SpringApplication.run(ShopServerApplication.class, args);

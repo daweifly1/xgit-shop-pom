@@ -1,4 +1,4 @@
-package com.xgit.bj.auth.user.dao.mapper.base;
+package com.xgit.bj.shop.generic.dao.mapper.base;
 
 import java.util.List;
 
