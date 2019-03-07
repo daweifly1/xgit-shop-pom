@@ -9,15 +9,13 @@ import org.springframework.cloud.netflix.eureka.serviceregistry.EurekaRegistrati
 import org.springframework.cloud.netflix.eureka.serviceregistry.EurekaServiceRegistry;
 import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableFeignClients
-//@ComponentScan(basePackages = {"com.xgit.bj.shop"})
-public class AuthServerApplication {
+public class ShopServerApplication {
     public static void main(String[] args) {
-        SpringApplication.run(AuthServerApplication.class, args);
+        SpringApplication.run(ShopServerApplication.class, args);
     }
 
     @Bean(initMethod = "showDeregisterInfo", destroyMethod = "deregister")

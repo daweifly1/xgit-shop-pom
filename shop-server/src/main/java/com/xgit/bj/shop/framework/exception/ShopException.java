@@ -1,6 +1,6 @@
 package com.xgit.bj.shop.framework.exception;
 
-import com.xgit.bj.auth.user.infra.ErrorCode;
+import com.xgit.bj.shop.framework.consts.ErrorCode;
 
 public class ShopException extends RuntimeException {
     private static final long serialVersionUID = 2368925481129834020L;
