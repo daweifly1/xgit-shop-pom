@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xgit.bj.shop.generic.dao.mapper.goods.GoodsBrandMapper">
+    <resultMap id="BaseResultMap" type="com.xgit.bj.shop.generic.dao.entity.goods.GoodsBrandDO">
+            <id column="id" property="id" jdbcType="BIGINT"/>
+            <result column="name" property="name" jdbcType="VARCHAR"/>
+            <result column="first_letter" property="firstLetter" jdbcType="VARCHAR"/>
+            <result column="sort" property="sort" jdbcType="BIGINT"/>
+            <result column="factory_status" property="factoryStatus" jdbcType="INTEGER"/>
+            <result column="show_status" property="showStatus" jdbcType="INTEGER"/>
+            <result column="product_count" property="productCount" jdbcType="INTEGER"/>
+            <result column="product_comment_count" property="productCommentCount" jdbcType="INTEGER"/>
+            <result column="logo" property="logo" jdbcType="VARCHAR"/>
+            <result column="big_pic" property="bigPic" jdbcType="VARCHAR"/>
+            <result column="brand_story" property="brandStory" jdbcType="VARCHAR"/>
+            <result column="db_create_author" property="dbCreateAuthor" jdbcType="VARCHAR"/>
+            <result column="db_create_time" property="dbCreateTime" jdbcType="TIMESTAMP"/>
+            <result column="db_update_author" property="dbUpdateAuthor" jdbcType="VARCHAR"/>
+            <result column="db_update_time" property="dbUpdateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+
+    <sql id="Base_Column_List">
+        id,name,first_letter,sort,factory_status,show_status,product_count,product_comment_count,logo,big_pic,
+        brand_story,db_create_author,db_create_time,db_update_author,db_update_time
+    </sql>
+
+    <sql id="cond">
+        <where>
+            <if test="id != null">
+                and ID = #{id,jdbcType=VARCHAR}
+            </if>
+            <if test="id != null">
+                and  id =#{id,jdbcType=BIGINT}
+            </if>
+            <if test="name != null and name != ''">
+                and  name =#{name,jdbcType=VARCHAR}
+            </if>
+            <if test="firstLetter != null and firstLetter != ''">
+                and  first_letter =#{firstLetter,jdbcType=VARCHAR}
+            </if>
+            <if test="sort != null">
+                and  sort =#{sort,jdbcType=BIGINT}
+            </if>
+            <if test="factoryStatus != null">
+                and  factory_status =#{factoryStatus,jdbcType=INTEGER}
+            </if>
+            <if test="showStatus != null">
+                and  show_status =#{showStatus,jdbcType=INTEGER}
+            </if>
+            <if test="productCount != null">
+                and  product_count =#{productCount,jdbcType=INTEGER}
+            </if>
+            <if test="productCommentCount != null">
+                and  product_comment_count =#{productCommentCount,jdbcType=INTEGER}
+            </if>
+            <if test="logo != null and logo != ''">
+                and  logo =#{logo,jdbcType=VARCHAR}
+            </if>
+            <if test="bigPic != null and bigPic != ''">
+                and  big_pic =#{bigPic,jdbcType=VARCHAR}
+            </if>
+            <if test="brandStory != null and brandStory != ''">
+                and  brand_story =#{brandStory,jdbcType=VARCHAR}
+            </if>
+            <if test="dbCreateAuthor != null and dbCreateAuthor != ''">
+                and  db_create_author =#{dbCreateAuthor,jdbcType=VARCHAR}
+            </if>
+            <if test="dbCreateTime != null">
+                and  db_create_time =#{dbCreateTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="dbUpdateAuthor != null and dbUpdateAuthor != ''">
+                and  db_update_author =#{dbUpdateAuthor,jdbcType=VARCHAR}
+            </if>
+            <if test="dbUpdateTime != null">
+                and  db_update_time =#{dbUpdateTime,jdbcType=TIMESTAMP}
+            </if>
+        </where>
+    </sql>
+
+    <select id="list" parameterType="com.xgit.bj.shop.beans.vo.goods.GoodsBrandVO" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_goods_brand
+        <include refid="cond"/>
+    </select>
+
+    <select id="queryList" parameterType="com.xgit.bj.shop.beans.vo.goods.GoodsBrandVO" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_goods_brand
+        <include refid="cond"/>
+    </select>
+
+    <select id="queryListByIds" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_goods_brand
+        where ID in
+        <foreach collection="ids" item="id" open="(" separator=","  close=")">
+         #{id,jdbcType=VARCHAR}
+        </foreach>
+    </select>
+
+
+
+    <delete id="deleteByPrimaryKeySelective" parameterType="java.lang.String">
+        delete from t_goods_brand where ID = #{id,jdbcType=VARCHAR}
+    </delete>
+
+    <insert id="insert" parameterType="com.xgit.bj.shop.generic.dao.entity.goods.GoodsBrandDO">
+        insert into t_goods_brand (
+        id,name,first_letter,sort,factory_status,show_status,product_count,product_comment_count,logo,big_pic,
+        brand_story,db_create_author,db_create_time,db_update_author,db_update_time
+        )
+        values (
+         #{id,jdbcType=BIGINT},#{name,jdbcType=VARCHAR},#{firstLetter,jdbcType=VARCHAR},#{sort,jdbcType=BIGINT},#{factoryStatus,jdbcType=INTEGER},
+         #{showStatus,jdbcType=INTEGER},#{productCount,jdbcType=INTEGER},#{productCommentCount,jdbcType=INTEGER},#{logo,jdbcType=VARCHAR},#{bigPic,jdbcType=VARCHAR},
+         #{brandStory,jdbcType=VARCHAR},#{dbCreateAuthor,jdbcType=VARCHAR},#{dbCreateTime,jdbcType=TIMESTAMP},#{dbUpdateAuthor,jdbcType=VARCHAR},#{dbUpdateTime,jdbcType=TIMESTAMP},
+        )
+    </insert>
+
+    <insert id="batchInsert" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+        insert into `t_goods_brand` (
+        id,name,first_letter,sort,factory_status,show_status,product_count,product_comment_count,logo,big_pic,brand_story,db_create_author,db_create_time,db_update_author,db_update_time
+        )
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.id,jdbcType=BIGINT},#{item.name,jdbcType=VARCHAR},#{item.firstLetter,jdbcType=VARCHAR},#{item.sort,jdbcType=BIGINT},#{item.factoryStatus,jdbcType=INTEGER},
+                #{item.showStatus,jdbcType=INTEGER},#{item.productCount,jdbcType=INTEGER},#{item.productCommentCount,jdbcType=INTEGER},#{item.logo,jdbcType=VARCHAR},#{item.bigPic,jdbcType=VARCHAR},
+                #{item.brandStory,jdbcType=VARCHAR},#{item.dbCreateAuthor,jdbcType=VARCHAR},#{item.dbCreateTime,jdbcType=TIMESTAMP},#{item.dbUpdateAuthor,jdbcType=VARCHAR},#{item.dbUpdateTime,jdbcType=TIMESTAMP},
+            )
+        </foreach>
+    </insert>
+
+    <update id="merge" parameterType="com.xgit.bj.shop.generic.dao.entity.goods.GoodsBrandDO">
+        merge into t_goods_brand t1
+        using (select #{id,jdbcType=VARCHAR} as ID from dual)tab_
+        ON (t1.ID=tab_.ID)
+        WHEN MATCHED THEN
+        update
+        <set>
+            <if test="id != null">
+                id =#{id,jdbcType=BIGINT},
+            </if>
+            <if test="name != null">
+                name =#{name,jdbcType=VARCHAR},
+            </if>
+            <if test="firstLetter != null">
+                first_letter =#{firstLetter,jdbcType=VARCHAR},
+            </if>
+            <if test="sort != null">
+                sort =#{sort,jdbcType=BIGINT},
+            </if>
+            <if test="factoryStatus != null">
+                factory_status =#{factoryStatus,jdbcType=INTEGER},
+            </if>
+            <if test="showStatus != null">
+                show_status =#{showStatus,jdbcType=INTEGER},
+            </if>
+            <if test="productCount != null">
+                product_count =#{productCount,jdbcType=INTEGER},
+            </if>
+            <if test="productCommentCount != null">
+                product_comment_count =#{productCommentCount,jdbcType=INTEGER},
+            </if>
+            <if test="logo != null">
+                logo =#{logo,jdbcType=VARCHAR},
+            </if>
+            <if test="bigPic != null">
+                big_pic =#{bigPic,jdbcType=VARCHAR},
+            </if>
+            <if test="brandStory != null">
+                brand_story =#{brandStory,jdbcType=VARCHAR},
+            </if>
+            <if test="dbCreateAuthor != null">
+                db_create_author =#{dbCreateAuthor,jdbcType=VARCHAR},
+            </if>
+            <if test="dbCreateTime != null">
+                db_create_time =#{dbCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="dbUpdateAuthor != null">
+                db_update_author =#{dbUpdateAuthor,jdbcType=VARCHAR},
+            </if>
+            <if test="dbUpdateTime != null">
+                db_update_time =#{dbUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        WHEN NOT MATCHED THEN
+        insert  (
+        id,name,first_letter,sort,factory_status,show_status,product_count,product_comment_count,logo,big_pic,
+        brand_story,db_create_author,db_create_time,db_update_author,db_update_time
+        )
+        values (
+        #{id,jdbcType=BIGINT},#{name,jdbcType=VARCHAR},#{firstLetter,jdbcType=VARCHAR},#{sort,jdbcType=BIGINT},#{factoryStatus,jdbcType=INTEGER},
+        #{showStatus,jdbcType=INTEGER},#{productCount,jdbcType=INTEGER},#{productCommentCount,jdbcType=INTEGER},#{logo,jdbcType=VARCHAR},#{bigPic,jdbcType=VARCHAR},
+        #{brandStory,jdbcType=VARCHAR},#{dbCreateAuthor,jdbcType=VARCHAR},#{dbCreateTime,jdbcType=TIMESTAMP},#{dbUpdateAuthor,jdbcType=VARCHAR},#{dbUpdateTime,jdbcType=TIMESTAMP},
+        )
+    </update>
+    <!--todo 待验证-->
+    <update id="mergeMsql" parameterType="com.xgit.bj.shop.generic.dao.entity.goods.GoodsBrandDO">
+        insert  (
+        id,name,first_letter,sort,factory_status,show_status,product_count,product_comment_count,logo,big_pic,
+            brand_story,db_create_author,db_create_time,db_update_author,db_update_time
+        )
+        values (
+        #{id,jdbcType=BIGINT},#{name,jdbcType=VARCHAR},#{firstLetter,jdbcType=VARCHAR},#{sort,jdbcType=BIGINT},#{factoryStatus,jdbcType=INTEGER},
+            #{showStatus,jdbcType=INTEGER},#{productCount,jdbcType=INTEGER},#{productCommentCount,jdbcType=INTEGER},#{logo,jdbcType=VARCHAR},#{bigPic,jdbcType=VARCHAR},
+            #{brandStory,jdbcType=VARCHAR},#{dbCreateAuthor,jdbcType=VARCHAR},#{dbCreateTime,jdbcType=TIMESTAMP},#{dbUpdateAuthor,jdbcType=VARCHAR},#{dbUpdateTime,jdbcType=TIMESTAMP},
+        )
+        ON duplicate KEY UPDATE
+        <set>
+            <if test="id != null">
+                id =#{id,jdbcType=BIGINT},
+            </if>
+            <if test="name != null">
+                name =#{name,jdbcType=VARCHAR},
+            </if>
+            <if test="firstLetter != null">
+                first_letter =#{firstLetter,jdbcType=VARCHAR},
+            </if>
+            <if test="sort != null">
+                sort =#{sort,jdbcType=BIGINT},
+            </if>
+            <if test="factoryStatus != null">
+                factory_status =#{factoryStatus,jdbcType=INTEGER},
+            </if>
+            <if test="showStatus != null">
+                show_status =#{showStatus,jdbcType=INTEGER},
+            </if>
+            <if test="productCount != null">
+                product_count =#{productCount,jdbcType=INTEGER},
+            </if>
+            <if test="productCommentCount != null">
+                product_comment_count =#{productCommentCount,jdbcType=INTEGER},
+            </if>
+            <if test="logo != null">
+                logo =#{logo,jdbcType=VARCHAR},
+            </if>
+            <if test="bigPic != null">
+                big_pic =#{bigPic,jdbcType=VARCHAR},
+            </if>
+            <if test="brandStory != null">
+                brand_story =#{brandStory,jdbcType=VARCHAR},
+            </if>
+            <if test="dbCreateAuthor != null">
+                db_create_author =#{dbCreateAuthor,jdbcType=VARCHAR},
+            </if>
+            <if test="dbCreateTime != null">
+                db_create_time =#{dbCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="dbUpdateAuthor != null">
+                db_update_author =#{dbUpdateAuthor,jdbcType=VARCHAR},
+            </if>
+            <if test="dbUpdateTime != null">
+                db_update_time =#{dbUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+    </update>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.xgit.bj.shop.generic.dao.entity.goods.GoodsBrandDO">
+        update t_goods_brand
+        <set>
+            <if test="id != null">
+                id =#{id,jdbcType=BIGINT},
+            </if>
+            <if test="name != null">
+                name =#{name,jdbcType=VARCHAR},
+            </if>
+            <if test="firstLetter != null">
+                first_letter =#{firstLetter,jdbcType=VARCHAR},
+            </if>
+            <if test="sort != null">
+                sort =#{sort,jdbcType=BIGINT},
+            </if>
+            <if test="factoryStatus != null">
+                factory_status =#{factoryStatus,jdbcType=INTEGER},
+            </if>
+            <if test="showStatus != null">
+                show_status =#{showStatus,jdbcType=INTEGER},
+            </if>
+            <if test="productCount != null">
+                product_count =#{productCount,jdbcType=INTEGER},
+            </if>
+            <if test="productCommentCount != null">
+                product_comment_count =#{productCommentCount,jdbcType=INTEGER},
+            </if>
+            <if test="logo != null">
+                logo =#{logo,jdbcType=VARCHAR},
+            </if>
+            <if test="bigPic != null">
+                big_pic =#{bigPic,jdbcType=VARCHAR},
+            </if>
+            <if test="brandStory != null">
+                brand_story =#{brandStory,jdbcType=VARCHAR},
+            </if>
+            <if test="dbCreateAuthor != null">
+                db_create_author =#{dbCreateAuthor,jdbcType=VARCHAR},
+            </if>
+            <if test="dbCreateTime != null">
+                db_create_time =#{dbCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="dbUpdateAuthor != null">
+                db_update_author =#{dbUpdateAuthor,jdbcType=VARCHAR},
+            </if>
+            <if test="dbUpdateTime != null">
+                db_update_time =#{dbUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where ID =  #{id,jdbcType=VARCHAR}
+    </update>
+</mapper>

@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xgit.bj.shop.generic.dao.mapper.goods.GoodsAttributeCategoryMapper">
+    <resultMap id="BaseResultMap" type="com.xgit.bj.shop.generic.dao.entity.goods.GoodsAttributeCategoryDO">
+            <id column="id" property="id" jdbcType="BIGINT"/>
+            <result column="name" property="name" jdbcType="VARCHAR"/>
+            <result column="attribute_count" property="attributeCount" jdbcType="INTEGER"/>
+            <result column="param_count" property="paramCount" jdbcType="INTEGER"/>
+            <result column="db_create_author" property="dbCreateAuthor" jdbcType="VARCHAR"/>
+            <result column="db_create_time" property="dbCreateTime" jdbcType="TIMESTAMP"/>
+            <result column="db_update_author" property="dbUpdateAuthor" jdbcType="VARCHAR"/>
+            <result column="db_update_time" property="dbUpdateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+
+    <sql id="Base_Column_List">
+        id,name,attribute_count,param_count,db_create_author,db_create_time,db_update_author,db_update_time
+    </sql>
+
+    <sql id="cond">
+        <where>
+            <if test="id != null">
+                and ID = #{id,jdbcType=VARCHAR}
+            </if>
+            <if test="id != null">
+                and  id =#{id,jdbcType=BIGINT}
+            </if>
+            <if test="name != null and name != ''">
+                and  name =#{name,jdbcType=VARCHAR}
+            </if>
+            <if test="attributeCount != null">
+                and  attribute_count =#{attributeCount,jdbcType=INTEGER}
+            </if>
+            <if test="paramCount != null">
+                and  param_count =#{paramCount,jdbcType=INTEGER}
+            </if>
+            <if test="dbCreateAuthor != null and dbCreateAuthor != ''">
+                and  db_create_author =#{dbCreateAuthor,jdbcType=VARCHAR}
+            </if>
+            <if test="dbCreateTime != null">
+                and  db_create_time =#{dbCreateTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="dbUpdateAuthor != null and dbUpdateAuthor != ''">
+                and  db_update_author =#{dbUpdateAuthor,jdbcType=VARCHAR}
+            </if>
+            <if test="dbUpdateTime != null">
+                and  db_update_time =#{dbUpdateTime,jdbcType=TIMESTAMP}
+            </if>
+        </where>
+    </sql>
+
+    <select id="list" parameterType="com.xgit.bj.shop.beans.vo.goods.GoodsAttributeCategoryVO" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_goods_attribute_category
+        <include refid="cond"/>
+    </select>
+
+    <select id="queryList" parameterType="com.xgit.bj.shop.beans.vo.goods.GoodsAttributeCategoryVO" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_goods_attribute_category
+        <include refid="cond"/>
+    </select>
+
+    <select id="queryListByIds" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_goods_attribute_category
+        where ID in
+        <foreach collection="ids" item="id" open="(" separator=","  close=")">
+         #{id,jdbcType=VARCHAR}
+        </foreach>
+    </select>
+
+
+
+    <delete id="deleteByPrimaryKeySelective" parameterType="java.lang.String">
+        delete from t_goods_attribute_category where ID = #{id,jdbcType=VARCHAR}
+    </delete>
+
+    <insert id="insert" parameterType="com.xgit.bj.shop.generic.dao.entity.goods.GoodsAttributeCategoryDO">
+        insert into t_goods_attribute_category (
+        id,name,attribute_count,param_count,db_create_author,db_create_time,db_update_author,db_update_time
+        )
+        values (
+         #{id,jdbcType=BIGINT},#{name,jdbcType=VARCHAR},#{attributeCount,jdbcType=INTEGER},#{paramCount,jdbcType=INTEGER},#{dbCreateAuthor,jdbcType=VARCHAR},
+         #{dbCreateTime,jdbcType=TIMESTAMP},#{dbUpdateAuthor,jdbcType=VARCHAR},#{dbUpdateTime,jdbcType=TIMESTAMP}
+        )
+    </insert>
+
+    <insert id="batchInsert" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+        insert into `t_goods_attribute_category` (
+        id,name,attribute_count,param_count,db_create_author,db_create_time,db_update_author,db_update_time
+        )
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.id,jdbcType=BIGINT},#{item.name,jdbcType=VARCHAR},#{item.attributeCount,jdbcType=INTEGER},#{item.paramCount,jdbcType=INTEGER},#{item.dbCreateAuthor,jdbcType=VARCHAR},
+                #{item.dbCreateTime,jdbcType=TIMESTAMP},#{item.dbUpdateAuthor,jdbcType=VARCHAR},#{item.dbUpdateTime,jdbcType=TIMESTAMP}
+            )
+        </foreach>
+    </insert>
+
+    <update id="merge" parameterType="com.xgit.bj.shop.generic.dao.entity.goods.GoodsAttributeCategoryDO">
+        merge into t_goods_attribute_category t1
+        using (select #{id,jdbcType=VARCHAR} as ID from dual)tab_
+        ON (t1.ID=tab_.ID)
+        WHEN MATCHED THEN
+        update
+        <set>
+            <if test="id != null">
+                id =#{id,jdbcType=BIGINT},
+            </if>
+            <if test="name != null">
+                name =#{name,jdbcType=VARCHAR},
+            </if>
+            <if test="attributeCount != null">
+                attribute_count =#{attributeCount,jdbcType=INTEGER},
+            </if>
+            <if test="paramCount != null">
+                param_count =#{paramCount,jdbcType=INTEGER},
+            </if>
+            <if test="dbCreateAuthor != null">
+                db_create_author =#{dbCreateAuthor,jdbcType=VARCHAR},
+            </if>
+            <if test="dbCreateTime != null">
+                db_create_time =#{dbCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="dbUpdateAuthor != null">
+                db_update_author =#{dbUpdateAuthor,jdbcType=VARCHAR},
+            </if>
+            <if test="dbUpdateTime != null">
+                db_update_time =#{dbUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        WHEN NOT MATCHED THEN
+        insert  (
+        id,name,attribute_count,param_count,db_create_author,db_create_time,db_update_author,db_update_time
+        )
+        values (
+        #{id,jdbcType=BIGINT},#{name,jdbcType=VARCHAR},#{attributeCount,jdbcType=INTEGER},#{paramCount,jdbcType=INTEGER},#{dbCreateAuthor,jdbcType=VARCHAR},
+        #{dbCreateTime,jdbcType=TIMESTAMP},#{dbUpdateAuthor,jdbcType=VARCHAR},#{dbUpdateTime,jdbcType=TIMESTAMP}
+        )
+    </update>
+    <!--todo 待验证-->
+    <update id="mergeMsql" parameterType="com.xgit.bj.shop.generic.dao.entity.goods.GoodsAttributeCategoryDO">
+        insert  (
+        id,name,attribute_count,param_count,db_create_author,db_create_time,db_update_author,db_update_time
+        )
+        values (
+        #{id,jdbcType=BIGINT},#{name,jdbcType=VARCHAR},#{attributeCount,jdbcType=INTEGER},#{paramCount,jdbcType=INTEGER},#{dbCreateAuthor,jdbcType=VARCHAR},
+            #{dbCreateTime,jdbcType=TIMESTAMP},#{dbUpdateAuthor,jdbcType=VARCHAR},#{dbUpdateTime,jdbcType=TIMESTAMP}
+        )
+        ON duplicate KEY UPDATE
+        <set>
+            <if test="id != null">
+                id =#{id,jdbcType=BIGINT},
+            </if>
+            <if test="name != null">
+                name =#{name,jdbcType=VARCHAR},
+            </if>
+            <if test="attributeCount != null">
+                attribute_count =#{attributeCount,jdbcType=INTEGER},
+            </if>
+            <if test="paramCount != null">
+                param_count =#{paramCount,jdbcType=INTEGER},
+            </if>
+            <if test="dbCreateAuthor != null">
+                db_create_author =#{dbCreateAuthor,jdbcType=VARCHAR},
+            </if>
+            <if test="dbCreateTime != null">
+                db_create_time =#{dbCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="dbUpdateAuthor != null">
+                db_update_author =#{dbUpdateAuthor,jdbcType=VARCHAR},
+            </if>
+            <if test="dbUpdateTime != null">
+                db_update_time =#{dbUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+    </update>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.xgit.bj.shop.generic.dao.entity.goods.GoodsAttributeCategoryDO">
+        update t_goods_attribute_category
+        <set>
+            <if test="id != null">
+                id =#{id,jdbcType=BIGINT},
+            </if>
+            <if test="name != null">
+                name =#{name,jdbcType=VARCHAR},
+            </if>
+            <if test="attributeCount != null">
+                attribute_count =#{attributeCount,jdbcType=INTEGER},
+            </if>
+            <if test="paramCount != null">
+                param_count =#{paramCount,jdbcType=INTEGER},
+            </if>
+            <if test="dbCreateAuthor != null">
+                db_create_author =#{dbCreateAuthor,jdbcType=VARCHAR},
+            </if>
+            <if test="dbCreateTime != null">
+                db_create_time =#{dbCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="dbUpdateAuthor != null">
+                db_update_author =#{dbUpdateAuthor,jdbcType=VARCHAR},
+            </if>
+            <if test="dbUpdateTime != null">
+                db_update_time =#{dbUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where ID =  #{id,jdbcType=VARCHAR}
+    </update>
+</mapper>

@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xgit.bj.shop.generic.dao.mapper.goods.GoodsAttributeMapper">
+    <resultMap id="BaseResultMap" type="com.xgit.bj.shop.generic.dao.entity.goods.GoodsAttributeDO">
+            <id column="id" property="id" jdbcType="BIGINT"/>
+            <result column="product_attribute_category_id" property="productAttributeCategoryId" jdbcType="BIGINT"/>
+            <result column="name" property="name" jdbcType="VARCHAR"/>
+            <result column="select_type" property="selectType" jdbcType="INTEGER"/>
+            <result column="input_type" property="inputType" jdbcType="INTEGER"/>
+            <result column="input_list" property="inputList" jdbcType="VARCHAR"/>
+            <result column="sort" property="sort" jdbcType="INTEGER"/>
+            <result column="filter_type" property="filterType" jdbcType="INTEGER"/>
+            <result column="search_type" property="searchType" jdbcType="INTEGER"/>
+            <result column="related_status" property="relatedStatus" jdbcType="INTEGER"/>
+            <result column="hand_add_status" property="handAddStatus" jdbcType="INTEGER"/>
+            <result column="type" property="type" jdbcType="INTEGER"/>
+            <result column="db_create_author" property="dbCreateAuthor" jdbcType="VARCHAR"/>
+            <result column="db_create_time" property="dbCreateTime" jdbcType="TIMESTAMP"/>
+            <result column="db_update_author" property="dbUpdateAuthor" jdbcType="VARCHAR"/>
+            <result column="db_update_time" property="dbUpdateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+
+    <sql id="Base_Column_List">
+        id,product_attribute_category_id,name,select_type,input_type,input_list,sort,filter_type,search_type,related_status,
+        hand_add_status,type,db_create_author,db_create_time,db_update_author,db_update_time
+    </sql>
+
+    <sql id="cond">
+        <where>
+            <if test="id != null">
+                and ID = #{id,jdbcType=VARCHAR}
+            </if>
+            <if test="id != null">
+                and  id =#{id,jdbcType=BIGINT}
+            </if>
+            <if test="productAttributeCategoryId != null">
+                and  product_attribute_category_id =#{productAttributeCategoryId,jdbcType=BIGINT}
+            </if>
+            <if test="name != null and name != ''">
+                and  name =#{name,jdbcType=VARCHAR}
+            </if>
+            <if test="selectType != null">
+                and  select_type =#{selectType,jdbcType=INTEGER}
+            </if>
+            <if test="inputType != null">
+                and  input_type =#{inputType,jdbcType=INTEGER}
+            </if>
+            <if test="inputList != null and inputList != ''">
+                and  input_list =#{inputList,jdbcType=VARCHAR}
+            </if>
+            <if test="sort != null">
+                and  sort =#{sort,jdbcType=INTEGER}
+            </if>
+            <if test="filterType != null">
+                and  filter_type =#{filterType,jdbcType=INTEGER}
+            </if>
+            <if test="searchType != null">
+                and  search_type =#{searchType,jdbcType=INTEGER}
+            </if>
+            <if test="relatedStatus != null">
+                and  related_status =#{relatedStatus,jdbcType=INTEGER}
+            </if>
+            <if test="handAddStatus != null">
+                and  hand_add_status =#{handAddStatus,jdbcType=INTEGER}
+            </if>
+            <if test="type != null">
+                and  type =#{type,jdbcType=INTEGER}
+            </if>
+            <if test="dbCreateAuthor != null and dbCreateAuthor != ''">
+                and  db_create_author =#{dbCreateAuthor,jdbcType=VARCHAR}
+            </if>
+            <if test="dbCreateTime != null">
+                and  db_create_time =#{dbCreateTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="dbUpdateAuthor != null and dbUpdateAuthor != ''">
+                and  db_update_author =#{dbUpdateAuthor,jdbcType=VARCHAR}
+            </if>
+            <if test="dbUpdateTime != null">
+                and  db_update_time =#{dbUpdateTime,jdbcType=TIMESTAMP}
+            </if>
+        </where>
+    </sql>
+
+    <select id="list" parameterType="com.xgit.bj.shop.beans.vo.goods.GoodsAttributeVO" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_goods_attribute
+        <include refid="cond"/>
+    </select>
+
+    <select id="queryList" parameterType="com.xgit.bj.shop.beans.vo.goods.GoodsAttributeVO" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_goods_attribute
+        <include refid="cond"/>
+    </select>
+
+    <select id="queryListByIds" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_goods_attribute
+        where ID in
+        <foreach collection="ids" item="id" open="(" separator=","  close=")">
+         #{id,jdbcType=VARCHAR}
+        </foreach>
+    </select>
+
+
+
+    <delete id="deleteByPrimaryKeySelective" parameterType="java.lang.String">
+        delete from t_goods_attribute where ID = #{id,jdbcType=VARCHAR}
+    </delete>
+
+    <insert id="insert" parameterType="com.xgit.bj.shop.generic.dao.entity.goods.GoodsAttributeDO">
+        insert into t_goods_attribute (
+        id,product_attribute_category_id,name,select_type,input_type,input_list,sort,filter_type,search_type,related_status,
+        hand_add_status,type,db_create_author,db_create_time,db_update_author,db_update_time
+        )
+        values (
+         #{id,jdbcType=BIGINT},#{productAttributeCategoryId,jdbcType=BIGINT},#{name,jdbcType=VARCHAR},#{selectType,jdbcType=INTEGER},#{inputType,jdbcType=INTEGER},
+         #{inputList,jdbcType=VARCHAR},#{sort,jdbcType=INTEGER},#{filterType,jdbcType=INTEGER},#{searchType,jdbcType=INTEGER},#{relatedStatus,jdbcType=INTEGER},
+         #{handAddStatus,jdbcType=INTEGER},#{type,jdbcType=INTEGER},#{dbCreateAuthor,jdbcType=VARCHAR},#{dbCreateTime,jdbcType=TIMESTAMP},#{dbUpdateAuthor,jdbcType=VARCHAR},
+         #{dbUpdateTime,jdbcType=TIMESTAMP}
+        )
+    </insert>
+
+    <insert id="batchInsert" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+        insert into `t_goods_attribute` (
+        id,product_attribute_category_id,name,select_type,input_type,input_list,sort,filter_type,search_type,related_status,hand_add_status,type,db_create_author,db_create_time,db_update_author,db_update_time
+        )
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.id,jdbcType=BIGINT},#{item.productAttributeCategoryId,jdbcType=BIGINT},#{item.name,jdbcType=VARCHAR},#{item.selectType,jdbcType=INTEGER},#{item.inputType,jdbcType=INTEGER},
+                #{item.inputList,jdbcType=VARCHAR},#{item.sort,jdbcType=INTEGER},#{item.filterType,jdbcType=INTEGER},#{item.searchType,jdbcType=INTEGER},#{item.relatedStatus,jdbcType=INTEGER},
+                #{item.handAddStatus,jdbcType=INTEGER},#{item.type,jdbcType=INTEGER},#{item.dbCreateAuthor,jdbcType=VARCHAR},#{item.dbCreateTime,jdbcType=TIMESTAMP},#{item.dbUpdateAuthor,jdbcType=VARCHAR},
+                #{item.dbUpdateTime,jdbcType=TIMESTAMP}
+            )
+        </foreach>
+    </insert>
+
+    <update id="merge" parameterType="com.xgit.bj.shop.generic.dao.entity.goods.GoodsAttributeDO">
+        merge into t_goods_attribute t1
+        using (select #{id,jdbcType=VARCHAR} as ID from dual)tab_
+        ON (t1.ID=tab_.ID)
+        WHEN MATCHED THEN
+        update
+        <set>
+            <if test="id != null">
+                id =#{id,jdbcType=BIGINT},
+            </if>
+            <if test="productAttributeCategoryId != null">
+                product_attribute_category_id =#{productAttributeCategoryId,jdbcType=BIGINT},
+            </if>
+            <if test="name != null">
+                name =#{name,jdbcType=VARCHAR},
+            </if>
+            <if test="selectType != null">
+                select_type =#{selectType,jdbcType=INTEGER},
+            </if>
+            <if test="inputType != null">
+                input_type =#{inputType,jdbcType=INTEGER},
+            </if>
+            <if test="inputList != null">
+                input_list =#{inputList,jdbcType=VARCHAR},
+            </if>
+            <if test="sort != null">
+                sort =#{sort,jdbcType=INTEGER},
+            </if>
+            <if test="filterType != null">
+                filter_type =#{filterType,jdbcType=INTEGER},
+            </if>
+            <if test="searchType != null">
+                search_type =#{searchType,jdbcType=INTEGER},
+            </if>
+            <if test="relatedStatus != null">
+                related_status =#{relatedStatus,jdbcType=INTEGER},
+            </if>
+            <if test="handAddStatus != null">
+                hand_add_status =#{handAddStatus,jdbcType=INTEGER},
+            </if>
+            <if test="type != null">
+                type =#{type,jdbcType=INTEGER},
+            </if>
+            <if test="dbCreateAuthor != null">
+                db_create_author =#{dbCreateAuthor,jdbcType=VARCHAR},
+            </if>
+            <if test="dbCreateTime != null">
+                db_create_time =#{dbCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="dbUpdateAuthor != null">
+                db_update_author =#{dbUpdateAuthor,jdbcType=VARCHAR},
+            </if>
+            <if test="dbUpdateTime != null">
+                db_update_time =#{dbUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        WHEN NOT MATCHED THEN
+        insert  (
+        id,product_attribute_category_id,name,select_type,input_type,input_list,sort,filter_type,search_type,related_status,
+        hand_add_status,type,db_create_author,db_create_time,db_update_author,db_update_time
+        )
+        values (
+        #{id,jdbcType=BIGINT},#{productAttributeCategoryId,jdbcType=BIGINT},#{name,jdbcType=VARCHAR},#{selectType,jdbcType=INTEGER},#{inputType,jdbcType=INTEGER},
+        #{inputList,jdbcType=VARCHAR},#{sort,jdbcType=INTEGER},#{filterType,jdbcType=INTEGER},#{searchType,jdbcType=INTEGER},#{relatedStatus,jdbcType=INTEGER},
+        #{handAddStatus,jdbcType=INTEGER},#{type,jdbcType=INTEGER},#{dbCreateAuthor,jdbcType=VARCHAR},#{dbCreateTime,jdbcType=TIMESTAMP},#{dbUpdateAuthor,jdbcType=VARCHAR},
+        #{dbUpdateTime,jdbcType=TIMESTAMP}
+        )
+    </update>
+    <!--todo 待验证-->
+    <update id="mergeMsql" parameterType="com.xgit.bj.shop.generic.dao.entity.goods.GoodsAttributeDO">
+        insert  (
+        id,product_attribute_category_id,name,select_type,input_type,input_list,sort,filter_type,search_type,related_status,
+            hand_add_status,type,db_create_author,db_create_time,db_update_author,db_update_time
+        )
+        values (
+        #{id,jdbcType=BIGINT},#{productAttributeCategoryId,jdbcType=BIGINT},#{name,jdbcType=VARCHAR},#{selectType,jdbcType=INTEGER},#{inputType,jdbcType=INTEGER},
+            #{inputList,jdbcType=VARCHAR},#{sort,jdbcType=INTEGER},#{filterType,jdbcType=INTEGER},#{searchType,jdbcType=INTEGER},#{relatedStatus,jdbcType=INTEGER},
+            #{handAddStatus,jdbcType=INTEGER},#{type,jdbcType=INTEGER},#{dbCreateAuthor,jdbcType=VARCHAR},#{dbCreateTime,jdbcType=TIMESTAMP},#{dbUpdateAuthor,jdbcType=VARCHAR},
+            #{dbUpdateTime,jdbcType=TIMESTAMP}
+        )
+        ON duplicate KEY UPDATE
+        <set>
+            <if test="id != null">
+                id =#{id,jdbcType=BIGINT},
+            </if>
+            <if test="productAttributeCategoryId != null">
+                product_attribute_category_id =#{productAttributeCategoryId,jdbcType=BIGINT},
+            </if>
+            <if test="name != null">
+                name =#{name,jdbcType=VARCHAR},
+            </if>
+            <if test="selectType != null">
+                select_type =#{selectType,jdbcType=INTEGER},
+            </if>
+            <if test="inputType != null">
+                input_type =#{inputType,jdbcType=INTEGER},
+            </if>
+            <if test="inputList != null">
+                input_list =#{inputList,jdbcType=VARCHAR},
+            </if>
+            <if test="sort != null">
+                sort =#{sort,jdbcType=INTEGER},
+            </if>
+            <if test="filterType != null">
+                filter_type =#{filterType,jdbcType=INTEGER},
+            </if>
+            <if test="searchType != null">
+                search_type =#{searchType,jdbcType=INTEGER},
+            </if>
+            <if test="relatedStatus != null">
+                related_status =#{relatedStatus,jdbcType=INTEGER},
+            </if>
+            <if test="handAddStatus != null">
+                hand_add_status =#{handAddStatus,jdbcType=INTEGER},
+            </if>
+            <if test="type != null">
+                type =#{type,jdbcType=INTEGER},
+            </if>
+            <if test="dbCreateAuthor != null">
+                db_create_author =#{dbCreateAuthor,jdbcType=VARCHAR},
+            </if>
+            <if test="dbCreateTime != null">
+                db_create_time =#{dbCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="dbUpdateAuthor != null">
+                db_update_author =#{dbUpdateAuthor,jdbcType=VARCHAR},
+            </if>
+            <if test="dbUpdateTime != null">
+                db_update_time =#{dbUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+    </update>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.xgit.bj.shop.generic.dao.entity.goods.GoodsAttributeDO">
+        update t_goods_attribute
+        <set>
+            <if test="id != null">
+                id =#{id,jdbcType=BIGINT},
+            </if>
+            <if test="productAttributeCategoryId != null">
+                product_attribute_category_id =#{productAttributeCategoryId,jdbcType=BIGINT},
+            </if>
+            <if test="name != null">
+                name =#{name,jdbcType=VARCHAR},
+            </if>
+            <if test="selectType != null">
+                select_type =#{selectType,jdbcType=INTEGER},
+            </if>
+            <if test="inputType != null">
+                input_type =#{inputType,jdbcType=INTEGER},
+            </if>
+            <if test="inputList != null">
+                input_list =#{inputList,jdbcType=VARCHAR},
+            </if>
+            <if test="sort != null">
+                sort =#{sort,jdbcType=INTEGER},
+            </if>
+            <if test="filterType != null">
+                filter_type =#{filterType,jdbcType=INTEGER},
+            </if>
+            <if test="searchType != null">
+                search_type =#{searchType,jdbcType=INTEGER},
+            </if>
+            <if test="relatedStatus != null">
+                related_status =#{relatedStatus,jdbcType=INTEGER},
+            </if>
+            <if test="handAddStatus != null">
+                hand_add_status =#{handAddStatus,jdbcType=INTEGER},
+            </if>
+            <if test="type != null">
+                type =#{type,jdbcType=INTEGER},
+            </if>
+            <if test="dbCreateAuthor != null">
+                db_create_author =#{dbCreateAuthor,jdbcType=VARCHAR},
+            </if>
+            <if test="dbCreateTime != null">
+                db_create_time =#{dbCreateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="dbUpdateAuthor != null">
+                db_update_author =#{dbUpdateAuthor,jdbcType=VARCHAR},
+            </if>
+            <if test="dbUpdateTime != null">
+                db_update_time =#{dbUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where ID =  #{id,jdbcType=VARCHAR}
+    </update>
+</mapper>
