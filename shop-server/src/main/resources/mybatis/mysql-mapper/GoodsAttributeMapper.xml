@@ -109,7 +109,7 @@
 
 
 
-    <delete id="deleteByPrimaryKeySelective" parameterType="java.lang.String">
+    <delete id="deleteByPrimaryKeySelective" parameterType="java.lang.Long">
         delete from t_goods_attribute where ID = #{id,jdbcType=VARCHAR}
     </delete>
 
