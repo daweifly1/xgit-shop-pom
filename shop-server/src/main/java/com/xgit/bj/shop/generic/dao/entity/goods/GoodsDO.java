@@ -18,7 +18,7 @@ public class GoodsDO  implements Serializable{
     //品牌ID
     private Long brandId;
     //类目id
-    private Long productCategoryId;
+    private Long goodsCategoryId;
     //运费模板
     private Long feightTemplateId;
     //属性分类id

@@ -18,7 +18,7 @@ public class GoodsVO  implements Serializable{
     @ApiModelProperty(value = "品牌ID")
     private Long brandId;
     @ApiModelProperty(value = "类目id")
-    private Long productCategoryId;
+    private Long goodsCategoryId;
     @ApiModelProperty(value = "运费模板")
     private Long feightTemplateId;
     @ApiModelProperty(value = "属性分类id")

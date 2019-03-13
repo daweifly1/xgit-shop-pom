@@ -30,4 +30,7 @@ public interface SkuStockMapper  extends BaseMapper<SkuStockVO, SkuStockDO> {
 
     List<SkuStockDO> queryListByIds(@Param(value = "ids") List<Long> ids);
 
+    int deleteByGoodsId(@Param(value = "goodsId") Long goodsId);
+
+    int batchInsert(List<SkuStockDO> do2bo4List);
 }

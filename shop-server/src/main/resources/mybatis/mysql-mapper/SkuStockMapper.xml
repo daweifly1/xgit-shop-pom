@@ -125,6 +125,11 @@
        )
     </delete>
 
+    <delete id="deleteByPrimaryKeySelective" parameterType="java.lang.Long">
+        delete from t_sku_stock where goods_id = #{goodsId}
+    </delete>
+
+
     <insert id="insert" parameterType="com.xgit.bj.shop.generic.dao.entity.goods.SkuStockDO"  useGeneratedKeys="true" keyProperty="id">
         insert into t_sku_stock (
         id,goods_id,sku_code,price,stock,low_stock,sp1,sp2,sp3,pic,

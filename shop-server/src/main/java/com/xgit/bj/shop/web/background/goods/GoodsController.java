@@ -1,28 +1,26 @@
 package com.xgit.bj.shop.web.background.goods;
 
 import com.github.pagehelper.PageInfo;
+import com.xgit.bj.core.rsp.ActionResult;
+import com.xgit.bj.core.rsp.PageCommonVO;
+import com.xgit.bj.core.rsp.SearchCommonVO;
+import com.xgit.bj.shop.beans.param.goods.GoodsParam;
+import com.xgit.bj.shop.beans.vo.goods.GoodsVO;
+import com.xgit.bj.shop.framework.consts.ErrorCode;
+import com.xgit.bj.shop.generic.facade.goods.GoodsFacade;
+import com.xgit.bj.shop.generic.service.goods.GoodsService;
+import com.xgit.bj.shop.web.background.base.BasicController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.apache.commons.collections.CollectionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import com.xgit.bj.core.rsp.PageCommonVO;
-import com.xgit.bj.core.rsp.SearchCommonVO;
-import com.xgit.bj.core.rsp.ActionResult;
-import com.xgit.bj.shop.web.background.base.BasicController;
-import com.xgit.bj.shop.framework.consts.ErrorCode;
+
 import java.util.Arrays;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.xgit.bj.shop.beans.vo.goods.GoodsVO;
-import com.xgit.bj.shop.generic.service.goods.GoodsService;
-import com.xgit.bj.shop.generic.facade.goods.GoodsFacade;
 
 
 /**
@@ -49,13 +47,13 @@ public class GoodsController extends BasicController {
 
         @RequestMapping(value = "/save", method = RequestMethod.POST)
         @ApiOperation(value = "商品信息-保存")
-        public ActionResult<ErrorCode> save(@RequestBody GoodsVO goodsVO) {
-                if (null == goodsVO) {
+        public ActionResult<ErrorCode> save(@RequestBody GoodsParam goodsParam) {
+                if (null == goodsParam) {
                         //TODO　校验逻辑。。
                         return actionResult(ErrorCode.IllegalArument);
                 }
                 try {
-                        ErrorCode code = goodsService.save(goodsVO, getSysAccountVO());
+                        ErrorCode code = goodsFacade.save(goodsParam, getSysAccountVO());
                         return actionResult(code);
                 } catch (Exception e) {
                         return new ActionResult(ErrorCode.Failure.getCode(), e.getMessage());
@@ -66,8 +64,8 @@ public class GoodsController extends BasicController {
 
         @RequestMapping(value = "/item", method = RequestMethod.GET)
         @ApiOperation(value = "根据id查询商品信息详情")
-        public ActionResult<GoodsVO> item(String id) {
-                GoodsVO goodsVO = goodsService.item(id);
+        public ActionResult<GoodsParam> item(Long id) {
+                GoodsParam goodsVO = goodsFacade.item(id);
                 return actionResult(goodsVO);
         }
 
