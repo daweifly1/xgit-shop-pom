@@ -26,6 +26,8 @@ public interface GoodsBrandMapper  extends BaseMapper<GoodsBrandVO, GoodsBrandDO
 
     int deleteByPrimaryKeySelective(Long id);
 
+    int batchDeleteByIds(@Param(value = "ids") List<Long> ids);
+
     List<GoodsBrandDO> queryListByIds(@Param(value = "ids") List<Long> ids);
 
 }

@@ -28,7 +28,7 @@ import com.xgit.bj.shop.generic.facade.goods.GoodsAttributeCategoryFacade;
 /**
  * GoodsAttributeCategory Controller 实现类
  */
-@Api(value = "产品属性分类表")
+@Api(value = "产品属性分类表--TODO ")
 @RestController
 @RequestMapping("/goodsAttributeCategory")
 public class GoodsAttributeCategoryController extends BasicController {

@@ -92,7 +92,7 @@
        )
     </delete>
 
-    <insert id="insert" parameterType="com.xgit.bj.shop.generic.dao.entity.goods.GoodsLadderDO">
+    <insert id="insert" parameterType="com.xgit.bj.shop.generic.dao.entity.goods.GoodsLadderDO"  useGeneratedKeys="true" keyProperty="id">
         insert into t_goods_ladder (
         id,goods_id,count,discount,price,db_create_author,db_create_time,db_update_author,db_update_time
         )

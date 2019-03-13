@@ -22,9 +22,9 @@ public class GoodsCategoryDO  implements Serializable{
     //分类级别：0->1级；1->2级
     private Integer level;
     //分类下商品数量，统计得到
-    private Integer productCount;
+    private Integer goodsCount;
     //单位
-    private String productUnit;
+    private String goodsUnit;
     //是否显示在导航栏：0->不显示；1->显示
     private Integer navStatus;
     //显示状态：0->不显示；1->显示

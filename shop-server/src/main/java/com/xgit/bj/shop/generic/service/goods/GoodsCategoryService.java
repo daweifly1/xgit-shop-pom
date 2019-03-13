@@ -148,11 +148,7 @@ public class GoodsCategoryService  extends BaseService<GoodsCategoryVO, GoodsCat
             if (CollectionUtils.isEmpty(ids)){
                 return 0;
             }
-            int i=0;
-            for(Long id:ids){
-              i =+ goodsCategoryMapper.deleteByPrimaryKeySelective(id);
-            }
-            return i;
+            return goodsCategoryMapper.batchDeleteByIds(ids);
         }
 
 }

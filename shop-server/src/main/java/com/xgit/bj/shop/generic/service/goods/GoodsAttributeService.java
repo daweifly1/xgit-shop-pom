@@ -148,11 +148,7 @@ public class GoodsAttributeService  extends BaseService<GoodsAttributeVO, GoodsA
             if (CollectionUtils.isEmpty(ids)){
                 return 0;
             }
-            int i=0;
-            for(Long id:ids){
-              i =+ goodsAttributeMapper.deleteByPrimaryKeySelective(id);
-            }
-            return i;
+            return goodsAttributeMapper.batchDeleteByIds(ids);
         }
 
 }

@@ -16,10 +16,7 @@ public class GoodsAttributeVO  implements Serializable{
     @ApiModelProperty(value = "主键")
     private Long id;
     @ApiModelProperty(value = "产品属性分类ID")
-    private Long productAttributeCategoryId;
-
-    @ApiModelProperty(value = "产品属性分类名称")
-    private String productAttributeCategoryName;
+    private Long goodsAttributeCategoryId;
     @ApiModelProperty(value = "名称")
     private String name;
     @ApiModelProperty(value = "属性选择类型：0->唯一；1->单选；2->多选")

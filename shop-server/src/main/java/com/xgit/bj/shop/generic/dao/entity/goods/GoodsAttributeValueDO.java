@@ -16,9 +16,11 @@ public class GoodsAttributeValueDO  implements Serializable{
     //pk
     private Long id;
     //商品id
-    private Long productId;
+    private Long goodsId;
     //商品属性id
-    private Long productAttributeId;
+    private Long goodsAttributeId;
+    //产品属性分类名称
+    private String goodsAttributeCategoryName;
     //手动添加规格或参数的值，参数单值，规格有多个时以逗号隔开
     private String value;
     //创建人

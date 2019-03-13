@@ -28,7 +28,7 @@ public class GoodsDO  implements Serializable{
     //图片
     private String pic;
     //货号
-    private String productSn;
+    private String goodsSn;
     //删除状态：0->未删除；1->已删除
     private Integer deleteStatus;
     //上架状态：0->下架；1->上架

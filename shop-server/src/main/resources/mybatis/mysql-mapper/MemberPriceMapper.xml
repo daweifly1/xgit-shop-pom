@@ -92,7 +92,7 @@
        )
     </delete>
 
-    <insert id="insert" parameterType="com.xgit.bj.shop.generic.dao.entity.goods.MemberPriceDO">
+    <insert id="insert" parameterType="com.xgit.bj.shop.generic.dao.entity.goods.MemberPriceDO"  useGeneratedKeys="true" keyProperty="id">
         insert into t_member_price (
         id,goods_id,member_level_id,member_price,member_level_name,db_create_author,db_create_time,db_update_author,db_update_time
         )

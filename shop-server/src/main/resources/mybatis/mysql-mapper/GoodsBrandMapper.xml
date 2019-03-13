@@ -9,8 +9,8 @@
             <result column="sort" property="sort" jdbcType="BIGINT"/>
             <result column="factory_status" property="factoryStatus" jdbcType="INTEGER"/>
             <result column="show_status" property="showStatus" jdbcType="INTEGER"/>
-            <result column="product_count" property="productCount" jdbcType="INTEGER"/>
-            <result column="product_comment_count" property="productCommentCount" jdbcType="INTEGER"/>
+            <result column="goods_count" property="goodsCount" jdbcType="INTEGER"/>
+            <result column="goods_comment_count" property="goodsCommentCount" jdbcType="INTEGER"/>
             <result column="logo" property="logo" jdbcType="VARCHAR"/>
             <result column="big_pic" property="bigPic" jdbcType="VARCHAR"/>
             <result column="brand_story" property="brandStory" jdbcType="VARCHAR"/>
@@ -22,7 +22,7 @@
 
 
     <sql id="Base_Column_List">
-        id,name,first_letter,sort,factory_status,show_status,product_count,product_comment_count,logo,big_pic,
+        id,name,first_letter,sort,factory_status,show_status,goods_count,goods_comment_count,logo,big_pic,
         brand_story,db_create_author,db_create_time,db_update_author,db_update_time
     </sql>
 
@@ -49,11 +49,11 @@
             <if test="showStatus != null">
                 and  show_status =#{showStatus,jdbcType=INTEGER}
             </if>
-            <if test="productCount != null">
-                and  product_count =#{productCount,jdbcType=INTEGER}
+            <if test="goodsCount != null">
+                and  goods_count =#{goodsCount,jdbcType=INTEGER}
             </if>
-            <if test="productCommentCount != null">
-                and  product_comment_count =#{productCommentCount,jdbcType=INTEGER}
+            <if test="goodsCommentCount != null">
+                and  goods_comment_count =#{goodsCommentCount,jdbcType=INTEGER}
             </if>
             <if test="logo != null and logo != ''">
                 and  logo =#{logo,jdbcType=VARCHAR}
@@ -106,30 +106,38 @@
 
 
     <delete id="deleteByPrimaryKeySelective" parameterType="java.lang.Long">
-        delete from t_goods_brand where ID = #{id,jdbcType=VARCHAR}
+        delete from t_goods_brand where ID = #{id}
     </delete>
 
-    <insert id="insert" parameterType="com.xgit.bj.shop.generic.dao.entity.goods.GoodsBrandDO">
+    <delete id="batchDeleteByIds" parameterType="java.util.List">
+        delete from t_goods_brand where ID in (
+        <foreach collection="ids" item="id" index="index" separator=",">
+            #{id}
+        </foreach>
+       )
+    </delete>
+
+    <insert id="insert" parameterType="com.xgit.bj.shop.generic.dao.entity.goods.GoodsBrandDO"  useGeneratedKeys="true" keyProperty="id">
         insert into t_goods_brand (
-        id,name,first_letter,sort,factory_status,show_status,product_count,product_comment_count,logo,big_pic,
+        id,name,first_letter,sort,factory_status,show_status,goods_count,goods_comment_count,logo,big_pic,
         brand_story,db_create_author,db_create_time,db_update_author,db_update_time
         )
         values (
          #{id,jdbcType=BIGINT},#{name,jdbcType=VARCHAR},#{firstLetter,jdbcType=VARCHAR},#{sort,jdbcType=BIGINT},#{factoryStatus,jdbcType=INTEGER},
-         #{showStatus,jdbcType=INTEGER},#{productCount,jdbcType=INTEGER},#{productCommentCount,jdbcType=INTEGER},#{logo,jdbcType=VARCHAR},#{bigPic,jdbcType=VARCHAR},
+         #{showStatus,jdbcType=INTEGER},#{goodsCount,jdbcType=INTEGER},#{goodsCommentCount,jdbcType=INTEGER},#{logo,jdbcType=VARCHAR},#{bigPic,jdbcType=VARCHAR},
          #{brandStory,jdbcType=VARCHAR},#{dbCreateAuthor,jdbcType=VARCHAR},#{dbCreateTime,jdbcType=TIMESTAMP},#{dbUpdateAuthor,jdbcType=VARCHAR},#{dbUpdateTime,jdbcType=TIMESTAMP},
         )
     </insert>
 
     <insert id="batchInsert" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
         insert into `t_goods_brand` (
-        id,name,first_letter,sort,factory_status,show_status,product_count,product_comment_count,logo,big_pic,brand_story,db_create_author,db_create_time,db_update_author,db_update_time
+        id,name,first_letter,sort,factory_status,show_status,goods_count,goods_comment_count,logo,big_pic,brand_story,db_create_author,db_create_time,db_update_author,db_update_time
         )
         values
         <foreach collection="list" item="item" index="index" separator=",">
             (
             #{item.id,jdbcType=BIGINT},#{item.name,jdbcType=VARCHAR},#{item.firstLetter,jdbcType=VARCHAR},#{item.sort,jdbcType=BIGINT},#{item.factoryStatus,jdbcType=INTEGER},
-                #{item.showStatus,jdbcType=INTEGER},#{item.productCount,jdbcType=INTEGER},#{item.productCommentCount,jdbcType=INTEGER},#{item.logo,jdbcType=VARCHAR},#{item.bigPic,jdbcType=VARCHAR},
+                #{item.showStatus,jdbcType=INTEGER},#{item.goodsCount,jdbcType=INTEGER},#{item.goodsCommentCount,jdbcType=INTEGER},#{item.logo,jdbcType=VARCHAR},#{item.bigPic,jdbcType=VARCHAR},
                 #{item.brandStory,jdbcType=VARCHAR},#{item.dbCreateAuthor,jdbcType=VARCHAR},#{item.dbCreateTime,jdbcType=TIMESTAMP},#{item.dbUpdateAuthor,jdbcType=VARCHAR},#{item.dbUpdateTime,jdbcType=TIMESTAMP},
             )
         </foreach>
@@ -160,11 +168,11 @@
             <if test="showStatus != null">
                 show_status =#{showStatus,jdbcType=INTEGER},
             </if>
-            <if test="productCount != null">
-                product_count =#{productCount,jdbcType=INTEGER},
+            <if test="goodsCount != null">
+                goods_count =#{goodsCount,jdbcType=INTEGER},
             </if>
-            <if test="productCommentCount != null">
-                product_comment_count =#{productCommentCount,jdbcType=INTEGER},
+            <if test="goodsCommentCount != null">
+                goods_comment_count =#{goodsCommentCount,jdbcType=INTEGER},
             </if>
             <if test="logo != null">
                 logo =#{logo,jdbcType=VARCHAR},
@@ -190,24 +198,24 @@
         </set>
         WHEN NOT MATCHED THEN
         insert  (
-        id,name,first_letter,sort,factory_status,show_status,product_count,product_comment_count,logo,big_pic,
+        id,name,first_letter,sort,factory_status,show_status,goods_count,goods_comment_count,logo,big_pic,
         brand_story,db_create_author,db_create_time,db_update_author,db_update_time
         )
         values (
         #{id,jdbcType=BIGINT},#{name,jdbcType=VARCHAR},#{firstLetter,jdbcType=VARCHAR},#{sort,jdbcType=BIGINT},#{factoryStatus,jdbcType=INTEGER},
-        #{showStatus,jdbcType=INTEGER},#{productCount,jdbcType=INTEGER},#{productCommentCount,jdbcType=INTEGER},#{logo,jdbcType=VARCHAR},#{bigPic,jdbcType=VARCHAR},
+        #{showStatus,jdbcType=INTEGER},#{goodsCount,jdbcType=INTEGER},#{goodsCommentCount,jdbcType=INTEGER},#{logo,jdbcType=VARCHAR},#{bigPic,jdbcType=VARCHAR},
         #{brandStory,jdbcType=VARCHAR},#{dbCreateAuthor,jdbcType=VARCHAR},#{dbCreateTime,jdbcType=TIMESTAMP},#{dbUpdateAuthor,jdbcType=VARCHAR},#{dbUpdateTime,jdbcType=TIMESTAMP},
         )
     </update>
     <!--todo 待验证-->
     <update id="mergeMsql" parameterType="com.xgit.bj.shop.generic.dao.entity.goods.GoodsBrandDO">
         insert  (
-        id,name,first_letter,sort,factory_status,show_status,product_count,product_comment_count,logo,big_pic,
+        id,name,first_letter,sort,factory_status,show_status,goods_count,goods_comment_count,logo,big_pic,
             brand_story,db_create_author,db_create_time,db_update_author,db_update_time
         )
         values (
         #{id,jdbcType=BIGINT},#{name,jdbcType=VARCHAR},#{firstLetter,jdbcType=VARCHAR},#{sort,jdbcType=BIGINT},#{factoryStatus,jdbcType=INTEGER},
-            #{showStatus,jdbcType=INTEGER},#{productCount,jdbcType=INTEGER},#{productCommentCount,jdbcType=INTEGER},#{logo,jdbcType=VARCHAR},#{bigPic,jdbcType=VARCHAR},
+            #{showStatus,jdbcType=INTEGER},#{goodsCount,jdbcType=INTEGER},#{goodsCommentCount,jdbcType=INTEGER},#{logo,jdbcType=VARCHAR},#{bigPic,jdbcType=VARCHAR},
             #{brandStory,jdbcType=VARCHAR},#{dbCreateAuthor,jdbcType=VARCHAR},#{dbCreateTime,jdbcType=TIMESTAMP},#{dbUpdateAuthor,jdbcType=VARCHAR},#{dbUpdateTime,jdbcType=TIMESTAMP},
         )
         ON duplicate KEY UPDATE
@@ -230,11 +238,11 @@
             <if test="showStatus != null">
                 show_status =#{showStatus,jdbcType=INTEGER},
             </if>
-            <if test="productCount != null">
-                product_count =#{productCount,jdbcType=INTEGER},
+            <if test="goodsCount != null">
+                goods_count =#{goodsCount,jdbcType=INTEGER},
             </if>
-            <if test="productCommentCount != null">
-                product_comment_count =#{productCommentCount,jdbcType=INTEGER},
+            <if test="goodsCommentCount != null">
+                goods_comment_count =#{goodsCommentCount,jdbcType=INTEGER},
             </if>
             <if test="logo != null">
                 logo =#{logo,jdbcType=VARCHAR},
@@ -281,11 +289,11 @@
             <if test="showStatus != null">
                 show_status =#{showStatus,jdbcType=INTEGER},
             </if>
-            <if test="productCount != null">
-                product_count =#{productCount,jdbcType=INTEGER},
+            <if test="goodsCount != null">
+                goods_count =#{goodsCount,jdbcType=INTEGER},
             </if>
-            <if test="productCommentCount != null">
-                product_comment_count =#{productCommentCount,jdbcType=INTEGER},
+            <if test="goodsCommentCount != null">
+                goods_comment_count =#{goodsCommentCount,jdbcType=INTEGER},
             </if>
             <if test="logo != null">
                 logo =#{logo,jdbcType=VARCHAR},

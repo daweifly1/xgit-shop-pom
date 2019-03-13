@@ -88,7 +88,7 @@
        )
     </delete>
 
-    <insert id="insert" parameterType="com.xgit.bj.shop.generic.dao.entity.goods.GoodsAttributeImgDO">
+    <insert id="insert" parameterType="com.xgit.bj.shop.generic.dao.entity.goods.GoodsAttributeImgDO"  useGeneratedKeys="true" keyProperty="id">
         insert into t_goods_attribute_img (
         id,goods_id,color,pic,db_create_author,db_create_time,db_update_author,db_update_time
         )

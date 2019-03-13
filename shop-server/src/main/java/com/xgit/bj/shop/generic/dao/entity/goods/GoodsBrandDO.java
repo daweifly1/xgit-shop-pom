@@ -26,9 +26,9 @@ public class GoodsBrandDO  implements Serializable{
     //展示状态，0否1是
     private Integer showStatus;
     //产品数量
-    private Integer productCount;
+    private Integer goodsCount;
     //产品评论数量
-    private Integer productCommentCount;
+    private Integer goodsCommentCount;
     //品牌logo
     private String logo;
     //专区大图

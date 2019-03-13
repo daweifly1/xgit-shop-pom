@@ -4,7 +4,7 @@
 <mapper namespace="com.xgit.bj.shop.generic.dao.mapper.goods.GoodsAttributeMapper">
     <resultMap id="BaseResultMap" type="com.xgit.bj.shop.generic.dao.entity.goods.GoodsAttributeDO">
             <id column="id" property="id" jdbcType="BIGINT"/>
-            <result column="product_attribute_category_id" property="productAttributeCategoryId" jdbcType="BIGINT"/>
+            <result column="goods_attribute_category_id" property="goodsAttributeCategoryId" jdbcType="BIGINT"/>
             <result column="name" property="name" jdbcType="VARCHAR"/>
             <result column="select_type" property="selectType" jdbcType="INTEGER"/>
             <result column="input_type" property="inputType" jdbcType="INTEGER"/>
@@ -23,7 +23,7 @@
 
 
     <sql id="Base_Column_List">
-        id,product_attribute_category_id,name,select_type,input_type,input_list,sort,filter_type,search_type,related_status,
+        id,goods_attribute_category_id,name,select_type,input_type,input_list,sort,filter_type,search_type,related_status,
         hand_add_status,type,db_create_author,db_create_time,db_update_author,db_update_time
     </sql>
 
@@ -35,8 +35,8 @@
             <if test="id != null">
                 and  id =#{id,jdbcType=BIGINT}
             </if>
-            <if test="productAttributeCategoryId != null">
-                and  product_attribute_category_id =#{productAttributeCategoryId,jdbcType=BIGINT}
+            <if test="goodsAttributeCategoryId != null">
+                and  goods_attribute_category_id =#{goodsAttributeCategoryId,jdbcType=BIGINT}
             </if>
             <if test="name != null and name != ''">
                 and  name =#{name,jdbcType=VARCHAR}
@@ -110,16 +110,24 @@
 
 
     <delete id="deleteByPrimaryKeySelective" parameterType="java.lang.Long">
-        delete from t_goods_attribute where ID = #{id,jdbcType=VARCHAR}
+        delete from t_goods_attribute where ID = #{id}
     </delete>
 
-    <insert id="insert" parameterType="com.xgit.bj.shop.generic.dao.entity.goods.GoodsAttributeDO">
+    <delete id="batchDeleteByIds" parameterType="java.util.List">
+        delete from t_goods_attribute where ID in (
+        <foreach collection="ids" item="id" index="index" separator=",">
+            #{id}
+        </foreach>
+       )
+    </delete>
+
+    <insert id="insert" parameterType="com.xgit.bj.shop.generic.dao.entity.goods.GoodsAttributeDO"  useGeneratedKeys="true" keyProperty="id">
         insert into t_goods_attribute (
-        id,product_attribute_category_id,name,select_type,input_type,input_list,sort,filter_type,search_type,related_status,
+        id,goods_attribute_category_id,name,select_type,input_type,input_list,sort,filter_type,search_type,related_status,
         hand_add_status,type,db_create_author,db_create_time,db_update_author,db_update_time
         )
         values (
-         #{id,jdbcType=BIGINT},#{productAttributeCategoryId,jdbcType=BIGINT},#{name,jdbcType=VARCHAR},#{selectType,jdbcType=INTEGER},#{inputType,jdbcType=INTEGER},
+         #{id,jdbcType=BIGINT},#{goodsAttributeCategoryId,jdbcType=BIGINT},#{name,jdbcType=VARCHAR},#{selectType,jdbcType=INTEGER},#{inputType,jdbcType=INTEGER},
          #{inputList,jdbcType=VARCHAR},#{sort,jdbcType=INTEGER},#{filterType,jdbcType=INTEGER},#{searchType,jdbcType=INTEGER},#{relatedStatus,jdbcType=INTEGER},
          #{handAddStatus,jdbcType=INTEGER},#{type,jdbcType=INTEGER},#{dbCreateAuthor,jdbcType=VARCHAR},#{dbCreateTime,jdbcType=TIMESTAMP},#{dbUpdateAuthor,jdbcType=VARCHAR},
          #{dbUpdateTime,jdbcType=TIMESTAMP}
@@ -128,12 +136,12 @@
 
     <insert id="batchInsert" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
         insert into `t_goods_attribute` (
-        id,product_attribute_category_id,name,select_type,input_type,input_list,sort,filter_type,search_type,related_status,hand_add_status,type,db_create_author,db_create_time,db_update_author,db_update_time
+        id,goods_attribute_category_id,name,select_type,input_type,input_list,sort,filter_type,search_type,related_status,hand_add_status,type,db_create_author,db_create_time,db_update_author,db_update_time
         )
         values
         <foreach collection="list" item="item" index="index" separator=",">
             (
-            #{item.id,jdbcType=BIGINT},#{item.productAttributeCategoryId,jdbcType=BIGINT},#{item.name,jdbcType=VARCHAR},#{item.selectType,jdbcType=INTEGER},#{item.inputType,jdbcType=INTEGER},
+            #{item.id,jdbcType=BIGINT},#{item.goodsAttributeCategoryId,jdbcType=BIGINT},#{item.name,jdbcType=VARCHAR},#{item.selectType,jdbcType=INTEGER},#{item.inputType,jdbcType=INTEGER},
                 #{item.inputList,jdbcType=VARCHAR},#{item.sort,jdbcType=INTEGER},#{item.filterType,jdbcType=INTEGER},#{item.searchType,jdbcType=INTEGER},#{item.relatedStatus,jdbcType=INTEGER},
                 #{item.handAddStatus,jdbcType=INTEGER},#{item.type,jdbcType=INTEGER},#{item.dbCreateAuthor,jdbcType=VARCHAR},#{item.dbCreateTime,jdbcType=TIMESTAMP},#{item.dbUpdateAuthor,jdbcType=VARCHAR},
                 #{item.dbUpdateTime,jdbcType=TIMESTAMP}
@@ -151,8 +159,8 @@
             <if test="id != null">
                 id =#{id,jdbcType=BIGINT},
             </if>
-            <if test="productAttributeCategoryId != null">
-                product_attribute_category_id =#{productAttributeCategoryId,jdbcType=BIGINT},
+            <if test="goodsAttributeCategoryId != null">
+                goods_attribute_category_id =#{goodsAttributeCategoryId,jdbcType=BIGINT},
             </if>
             <if test="name != null">
                 name =#{name,jdbcType=VARCHAR},
@@ -199,11 +207,11 @@
         </set>
         WHEN NOT MATCHED THEN
         insert  (
-        id,product_attribute_category_id,name,select_type,input_type,input_list,sort,filter_type,search_type,related_status,
+        id,goods_attribute_category_id,name,select_type,input_type,input_list,sort,filter_type,search_type,related_status,
         hand_add_status,type,db_create_author,db_create_time,db_update_author,db_update_time
         )
         values (
-        #{id,jdbcType=BIGINT},#{productAttributeCategoryId,jdbcType=BIGINT},#{name,jdbcType=VARCHAR},#{selectType,jdbcType=INTEGER},#{inputType,jdbcType=INTEGER},
+        #{id,jdbcType=BIGINT},#{goodsAttributeCategoryId,jdbcType=BIGINT},#{name,jdbcType=VARCHAR},#{selectType,jdbcType=INTEGER},#{inputType,jdbcType=INTEGER},
         #{inputList,jdbcType=VARCHAR},#{sort,jdbcType=INTEGER},#{filterType,jdbcType=INTEGER},#{searchType,jdbcType=INTEGER},#{relatedStatus,jdbcType=INTEGER},
         #{handAddStatus,jdbcType=INTEGER},#{type,jdbcType=INTEGER},#{dbCreateAuthor,jdbcType=VARCHAR},#{dbCreateTime,jdbcType=TIMESTAMP},#{dbUpdateAuthor,jdbcType=VARCHAR},
         #{dbUpdateTime,jdbcType=TIMESTAMP}
@@ -212,11 +220,11 @@
     <!--todo 待验证-->
     <update id="mergeMsql" parameterType="com.xgit.bj.shop.generic.dao.entity.goods.GoodsAttributeDO">
         insert  (
-        id,product_attribute_category_id,name,select_type,input_type,input_list,sort,filter_type,search_type,related_status,
+        id,goods_attribute_category_id,name,select_type,input_type,input_list,sort,filter_type,search_type,related_status,
             hand_add_status,type,db_create_author,db_create_time,db_update_author,db_update_time
         )
         values (
-        #{id,jdbcType=BIGINT},#{productAttributeCategoryId,jdbcType=BIGINT},#{name,jdbcType=VARCHAR},#{selectType,jdbcType=INTEGER},#{inputType,jdbcType=INTEGER},
+        #{id,jdbcType=BIGINT},#{goodsAttributeCategoryId,jdbcType=BIGINT},#{name,jdbcType=VARCHAR},#{selectType,jdbcType=INTEGER},#{inputType,jdbcType=INTEGER},
             #{inputList,jdbcType=VARCHAR},#{sort,jdbcType=INTEGER},#{filterType,jdbcType=INTEGER},#{searchType,jdbcType=INTEGER},#{relatedStatus,jdbcType=INTEGER},
             #{handAddStatus,jdbcType=INTEGER},#{type,jdbcType=INTEGER},#{dbCreateAuthor,jdbcType=VARCHAR},#{dbCreateTime,jdbcType=TIMESTAMP},#{dbUpdateAuthor,jdbcType=VARCHAR},
             #{dbUpdateTime,jdbcType=TIMESTAMP}
@@ -226,8 +234,8 @@
             <if test="id != null">
                 id =#{id,jdbcType=BIGINT},
             </if>
-            <if test="productAttributeCategoryId != null">
-                product_attribute_category_id =#{productAttributeCategoryId,jdbcType=BIGINT},
+            <if test="goodsAttributeCategoryId != null">
+                goods_attribute_category_id =#{goodsAttributeCategoryId,jdbcType=BIGINT},
             </if>
             <if test="name != null">
                 name =#{name,jdbcType=VARCHAR},
@@ -280,8 +288,8 @@
             <if test="id != null">
                 id =#{id,jdbcType=BIGINT},
             </if>
-            <if test="productAttributeCategoryId != null">
-                product_attribute_category_id =#{productAttributeCategoryId,jdbcType=BIGINT},
+            <if test="goodsAttributeCategoryId != null">
+                goods_attribute_category_id =#{goodsAttributeCategoryId,jdbcType=BIGINT},
             </if>
             <if test="name != null">
                 name =#{name,jdbcType=VARCHAR},

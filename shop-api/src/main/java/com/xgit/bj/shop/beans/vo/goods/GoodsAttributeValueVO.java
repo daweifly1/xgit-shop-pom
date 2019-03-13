@@ -16,9 +16,11 @@ public class GoodsAttributeValueVO  implements Serializable{
     @ApiModelProperty(value = "pk")
     private Long id;
     @ApiModelProperty(value = "商品id")
-    private Long productId;
+    private Long goodsId;
     @ApiModelProperty(value = "商品属性id")
-    private Long productAttributeId;
+    private Long goodsAttributeId;
+    @ApiModelProperty(value = "产品属性分类名称")
+    private String goodsAttributeCategoryName;
     @ApiModelProperty(value = "手动添加规格或参数的值，参数单值，规格有多个时以逗号隔开")
     private String value;
     @ApiModelProperty(value = "创建人")

@@ -1,33 +1,30 @@
 package com.xgit.bj.shop.beans.vo.goods;
-
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.ToString;
-
 import java.io.Serializable;
-import java.util.Date;
 
+import io.swagger.annotations.ApiModelProperty;
+import java.math.BigDecimal;
+import java.util.Date;
 /**
  * 商品类目信息信息表 VO类
  */
 @Data
 @ToString
-public class GoodsCategoryVO implements Serializable {
+public class GoodsCategoryVO  implements Serializable{
     private static final long serialVersionUID = -1L;
     @ApiModelProperty(value = "主键")
     private Long id;
-    @ApiModelProperty(value = "上级分类的编号：0表示一级分类")
+    @ApiModelProperty(value = "上机分类的编号：0表示一级分类")
     private Long parentId;
-    @ApiModelProperty(value = "上级分类的名称")
-    private String parentName;
     @ApiModelProperty(value = "名称")
     private String name;
     @ApiModelProperty(value = "分类级别：0->1级；1->2级")
     private Integer level;
     @ApiModelProperty(value = "分类下商品数量，统计得到")
-    private Integer productCount;
+    private Integer goodsCount;
     @ApiModelProperty(value = "单位")
-    private String productUnit;
+    private String goodsUnit;
     @ApiModelProperty(value = "是否显示在导航栏：0->不显示；1->显示")
     private Integer navStatus;
     @ApiModelProperty(value = "显示状态：0->不显示；1->显示")

@@ -77,10 +77,18 @@
 
 
     <delete id="deleteByPrimaryKeySelective" parameterType="java.lang.Long">
-        delete from t_goods_attribute_category where ID = #{id,jdbcType=VARCHAR}
+        delete from t_goods_attribute_category where ID = #{id}
     </delete>
 
-    <insert id="insert" parameterType="com.xgit.bj.shop.generic.dao.entity.goods.GoodsAttributeCategoryDO">
+    <delete id="batchDeleteByIds" parameterType="java.util.List">
+        delete from t_goods_attribute_category where ID in (
+        <foreach collection="ids" item="id" index="index" separator=",">
+            #{id}
+        </foreach>
+       )
+    </delete>
+
+    <insert id="insert" parameterType="com.xgit.bj.shop.generic.dao.entity.goods.GoodsAttributeCategoryDO"  useGeneratedKeys="true" keyProperty="id">
         insert into t_goods_attribute_category (
         id,name,attribute_count,param_count,db_create_author,db_create_time,db_update_author,db_update_time
         )

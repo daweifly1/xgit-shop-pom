@@ -10,7 +10,7 @@
             <result column="product_attribute_category_id" property="productAttributeCategoryId" jdbcType="BIGINT"/>
             <result column="name" property="name" jdbcType="VARCHAR"/>
             <result column="pic" property="pic" jdbcType="VARCHAR"/>
-            <result column="product_sn" property="productSn" jdbcType="VARCHAR"/>
+            <result column="goods_sn" property="goodsSn" jdbcType="VARCHAR"/>
             <result column="delete_status" property="deleteStatus" jdbcType="INTEGER"/>
             <result column="publish_status" property="publishStatus" jdbcType="INTEGER"/>
             <result column="new_status" property="newStatus" jdbcType="INTEGER"/>
@@ -53,7 +53,7 @@
 
 
     <sql id="Base_Column_List">
-        id,brand_id,product_category_id,feight_template_id,product_attribute_category_id,name,pic,product_sn,delete_status,publish_status,
+        id,brand_id,product_category_id,feight_template_id,product_attribute_category_id,name,pic,goods_sn,delete_status,publish_status,
         new_status,recommand_status,verify_status,sort,sale,price,promotion_price,gift_growth,gift_point,use_point_limit,
         sub_title,description,original_price,stock,low_stock,unit,weight,preview_status,service_ids,keywords,
         note,album_pics,detail_title,detail_desc,detail_html,detail_mobile_html,promotion_start_time,promotion_end_time,promotion_per_limit,promotion_type,
@@ -86,8 +86,8 @@
             <if test="pic != null and pic != ''">
                 and  pic =#{pic,jdbcType=VARCHAR}
             </if>
-            <if test="productSn != null and productSn != ''">
-                and  product_sn =#{productSn,jdbcType=VARCHAR}
+            <if test="goodsSn != null and goodsSn != ''">
+                and  goods_sn =#{goodsSn,jdbcType=VARCHAR}
             </if>
             <if test="deleteStatus != null">
                 and  delete_status =#{deleteStatus,jdbcType=INTEGER}
@@ -233,12 +233,20 @@
 
 
     <delete id="deleteByPrimaryKeySelective" parameterType="java.lang.Long">
-        delete from t_goods where ID = #{id,jdbcType=VARCHAR}
+        delete from t_goods where ID = #{id}
     </delete>
 
-    <insert id="insert" parameterType="com.xgit.bj.shop.generic.dao.entity.goods.GoodsDO">
+    <delete id="batchDeleteByIds" parameterType="java.util.List">
+        delete from t_goods where ID in (
+        <foreach collection="ids" item="id" index="index" separator=",">
+            #{id}
+        </foreach>
+       )
+    </delete>
+
+    <insert id="insert" parameterType="com.xgit.bj.shop.generic.dao.entity.goods.GoodsDO"  useGeneratedKeys="true" keyProperty="id">
         insert into t_goods (
-        id,brand_id,product_category_id,feight_template_id,product_attribute_category_id,name,pic,product_sn,delete_status,publish_status,
+        id,brand_id,product_category_id,feight_template_id,product_attribute_category_id,name,pic,goods_sn,delete_status,publish_status,
         new_status,recommand_status,verify_status,sort,sale,price,promotion_price,gift_growth,gift_point,use_point_limit,
         sub_title,description,original_price,stock,low_stock,unit,weight,preview_status,service_ids,keywords,
         note,album_pics,detail_title,detail_desc,detail_html,detail_mobile_html,promotion_start_time,promotion_end_time,promotion_per_limit,promotion_type,
@@ -246,7 +254,7 @@
         )
         values (
          #{id,jdbcType=BIGINT},#{brandId,jdbcType=BIGINT},#{productCategoryId,jdbcType=BIGINT},#{feightTemplateId,jdbcType=BIGINT},#{productAttributeCategoryId,jdbcType=BIGINT},
-         #{name,jdbcType=VARCHAR},#{pic,jdbcType=VARCHAR},#{productSn,jdbcType=VARCHAR},#{deleteStatus,jdbcType=INTEGER},#{publishStatus,jdbcType=INTEGER},
+         #{name,jdbcType=VARCHAR},#{pic,jdbcType=VARCHAR},#{goodsSn,jdbcType=VARCHAR},#{deleteStatus,jdbcType=INTEGER},#{publishStatus,jdbcType=INTEGER},
          #{newStatus,jdbcType=INTEGER},#{recommandStatus,jdbcType=INTEGER},#{verifyStatus,jdbcType=INTEGER},#{sort,jdbcType=BIGINT},#{sale,jdbcType=INTEGER},
          #{price,jdbcType=DECIMAL},#{promotionPrice,jdbcType=BIGINT},#{giftGrowth,jdbcType=INTEGER},#{giftPoint,jdbcType=INTEGER},#{usePointLimit,jdbcType=INTEGER},
          #{subTitle,jdbcType=VARCHAR},#{description,jdbcType=VARCHAR},#{originalPrice,jdbcType=BIGINT},#{stock,jdbcType=INTEGER},#{lowStock,jdbcType=INTEGER},
@@ -260,13 +268,13 @@
 
     <insert id="batchInsert" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
         insert into `t_goods` (
-        id,brand_id,product_category_id,feight_template_id,product_attribute_category_id,name,pic,product_sn,delete_status,publish_status,new_status,recommand_status,verify_status,sort,sale,price,promotion_price,gift_growth,gift_point,use_point_limit,sub_title,description,original_price,stock,low_stock,unit,weight,preview_status,service_ids,keywords,note,album_pics,detail_title,detail_desc,detail_html,detail_mobile_html,promotion_start_time,promotion_end_time,promotion_per_limit,promotion_type,brand_name,product_category_name,db_create_author,db_create_time,db_update_author,db_update_time
+        id,brand_id,product_category_id,feight_template_id,product_attribute_category_id,name,pic,goods_sn,delete_status,publish_status,new_status,recommand_status,verify_status,sort,sale,price,promotion_price,gift_growth,gift_point,use_point_limit,sub_title,description,original_price,stock,low_stock,unit,weight,preview_status,service_ids,keywords,note,album_pics,detail_title,detail_desc,detail_html,detail_mobile_html,promotion_start_time,promotion_end_time,promotion_per_limit,promotion_type,brand_name,product_category_name,db_create_author,db_create_time,db_update_author,db_update_time
         )
         values
         <foreach collection="list" item="item" index="index" separator=",">
             (
             #{item.id,jdbcType=BIGINT},#{item.brandId,jdbcType=BIGINT},#{item.productCategoryId,jdbcType=BIGINT},#{item.feightTemplateId,jdbcType=BIGINT},#{item.productAttributeCategoryId,jdbcType=BIGINT},
-                #{item.name,jdbcType=VARCHAR},#{item.pic,jdbcType=VARCHAR},#{item.productSn,jdbcType=VARCHAR},#{item.deleteStatus,jdbcType=INTEGER},#{item.publishStatus,jdbcType=INTEGER},
+                #{item.name,jdbcType=VARCHAR},#{item.pic,jdbcType=VARCHAR},#{item.goodsSn,jdbcType=VARCHAR},#{item.deleteStatus,jdbcType=INTEGER},#{item.publishStatus,jdbcType=INTEGER},
                 #{item.newStatus,jdbcType=INTEGER},#{item.recommandStatus,jdbcType=INTEGER},#{item.verifyStatus,jdbcType=INTEGER},#{item.sort,jdbcType=BIGINT},#{item.sale,jdbcType=INTEGER},
                 #{item.price,jdbcType=DECIMAL},#{item.promotionPrice,jdbcType=BIGINT},#{item.giftGrowth,jdbcType=INTEGER},#{item.giftPoint,jdbcType=INTEGER},#{item.usePointLimit,jdbcType=INTEGER},
                 #{item.subTitle,jdbcType=VARCHAR},#{item.description,jdbcType=VARCHAR},#{item.originalPrice,jdbcType=BIGINT},#{item.stock,jdbcType=INTEGER},#{item.lowStock,jdbcType=INTEGER},
@@ -307,8 +315,8 @@
             <if test="pic != null">
                 pic =#{pic,jdbcType=VARCHAR},
             </if>
-            <if test="productSn != null">
-                product_sn =#{productSn,jdbcType=VARCHAR},
+            <if test="goodsSn != null">
+                goods_sn =#{goodsSn,jdbcType=VARCHAR},
             </if>
             <if test="deleteStatus != null">
                 delete_status =#{deleteStatus,jdbcType=INTEGER},
@@ -427,7 +435,7 @@
         </set>
         WHEN NOT MATCHED THEN
         insert  (
-        id,brand_id,product_category_id,feight_template_id,product_attribute_category_id,name,pic,product_sn,delete_status,publish_status,
+        id,brand_id,product_category_id,feight_template_id,product_attribute_category_id,name,pic,goods_sn,delete_status,publish_status,
         new_status,recommand_status,verify_status,sort,sale,price,promotion_price,gift_growth,gift_point,use_point_limit,
         sub_title,description,original_price,stock,low_stock,unit,weight,preview_status,service_ids,keywords,
         note,album_pics,detail_title,detail_desc,detail_html,detail_mobile_html,promotion_start_time,promotion_end_time,promotion_per_limit,promotion_type,
@@ -435,7 +443,7 @@
         )
         values (
         #{id,jdbcType=BIGINT},#{brandId,jdbcType=BIGINT},#{productCategoryId,jdbcType=BIGINT},#{feightTemplateId,jdbcType=BIGINT},#{productAttributeCategoryId,jdbcType=BIGINT},
-        #{name,jdbcType=VARCHAR},#{pic,jdbcType=VARCHAR},#{productSn,jdbcType=VARCHAR},#{deleteStatus,jdbcType=INTEGER},#{publishStatus,jdbcType=INTEGER},
+        #{name,jdbcType=VARCHAR},#{pic,jdbcType=VARCHAR},#{goodsSn,jdbcType=VARCHAR},#{deleteStatus,jdbcType=INTEGER},#{publishStatus,jdbcType=INTEGER},
         #{newStatus,jdbcType=INTEGER},#{recommandStatus,jdbcType=INTEGER},#{verifyStatus,jdbcType=INTEGER},#{sort,jdbcType=BIGINT},#{sale,jdbcType=INTEGER},
         #{price,jdbcType=DECIMAL},#{promotionPrice,jdbcType=BIGINT},#{giftGrowth,jdbcType=INTEGER},#{giftPoint,jdbcType=INTEGER},#{usePointLimit,jdbcType=INTEGER},
         #{subTitle,jdbcType=VARCHAR},#{description,jdbcType=VARCHAR},#{originalPrice,jdbcType=BIGINT},#{stock,jdbcType=INTEGER},#{lowStock,jdbcType=INTEGER},
@@ -449,7 +457,7 @@
     <!--todo 待验证-->
     <update id="mergeMsql" parameterType="com.xgit.bj.shop.generic.dao.entity.goods.GoodsDO">
         insert  (
-        id,brand_id,product_category_id,feight_template_id,product_attribute_category_id,name,pic,product_sn,delete_status,publish_status,
+        id,brand_id,product_category_id,feight_template_id,product_attribute_category_id,name,pic,goods_sn,delete_status,publish_status,
             new_status,recommand_status,verify_status,sort,sale,price,promotion_price,gift_growth,gift_point,use_point_limit,
             sub_title,description,original_price,stock,low_stock,unit,weight,preview_status,service_ids,keywords,
             note,album_pics,detail_title,detail_desc,detail_html,detail_mobile_html,promotion_start_time,promotion_end_time,promotion_per_limit,promotion_type,
@@ -457,7 +465,7 @@
         )
         values (
         #{id,jdbcType=BIGINT},#{brandId,jdbcType=BIGINT},#{productCategoryId,jdbcType=BIGINT},#{feightTemplateId,jdbcType=BIGINT},#{productAttributeCategoryId,jdbcType=BIGINT},
-            #{name,jdbcType=VARCHAR},#{pic,jdbcType=VARCHAR},#{productSn,jdbcType=VARCHAR},#{deleteStatus,jdbcType=INTEGER},#{publishStatus,jdbcType=INTEGER},
+            #{name,jdbcType=VARCHAR},#{pic,jdbcType=VARCHAR},#{goodsSn,jdbcType=VARCHAR},#{deleteStatus,jdbcType=INTEGER},#{publishStatus,jdbcType=INTEGER},
             #{newStatus,jdbcType=INTEGER},#{recommandStatus,jdbcType=INTEGER},#{verifyStatus,jdbcType=INTEGER},#{sort,jdbcType=BIGINT},#{sale,jdbcType=INTEGER},
             #{price,jdbcType=DECIMAL},#{promotionPrice,jdbcType=BIGINT},#{giftGrowth,jdbcType=INTEGER},#{giftPoint,jdbcType=INTEGER},#{usePointLimit,jdbcType=INTEGER},
             #{subTitle,jdbcType=VARCHAR},#{description,jdbcType=VARCHAR},#{originalPrice,jdbcType=BIGINT},#{stock,jdbcType=INTEGER},#{lowStock,jdbcType=INTEGER},
@@ -490,8 +498,8 @@
             <if test="pic != null">
                 pic =#{pic,jdbcType=VARCHAR},
             </if>
-            <if test="productSn != null">
-                product_sn =#{productSn,jdbcType=VARCHAR},
+            <if test="goodsSn != null">
+                goods_sn =#{goodsSn,jdbcType=VARCHAR},
             </if>
             <if test="deleteStatus != null">
                 delete_status =#{deleteStatus,jdbcType=INTEGER},
@@ -634,8 +642,8 @@
             <if test="pic != null">
                 pic =#{pic,jdbcType=VARCHAR},
             </if>
-            <if test="productSn != null">
-                product_sn =#{productSn,jdbcType=VARCHAR},
+            <if test="goodsSn != null">
+                goods_sn =#{goodsSn,jdbcType=VARCHAR},
             </if>
             <if test="deleteStatus != null">
                 delete_status =#{deleteStatus,jdbcType=INTEGER},

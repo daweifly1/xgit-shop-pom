@@ -26,9 +26,9 @@ public class GoodsBrandVO  implements Serializable{
     @ApiModelProperty(value = "展示状态，0否1是")
     private Integer showStatus;
     @ApiModelProperty(value = "产品数量")
-    private Integer productCount;
+    private Integer goodsCount;
     @ApiModelProperty(value = "产品评论数量")
-    private Integer productCommentCount;
+    private Integer goodsCommentCount;
     @ApiModelProperty(value = "品牌logo")
     private String logo;
     @ApiModelProperty(value = "专区大图")

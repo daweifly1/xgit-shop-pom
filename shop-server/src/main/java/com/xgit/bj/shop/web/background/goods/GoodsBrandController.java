@@ -28,7 +28,7 @@ import com.xgit.bj.shop.generic.facade.goods.GoodsBrandFacade;
 /**
  * GoodsBrand Controller 实现类
  */
-@Api(value = "品牌表")
+@Api(value = "品牌表--TODO ")
 @RestController
 @RequestMapping("/goodsBrand")
 public class GoodsBrandController extends BasicController {

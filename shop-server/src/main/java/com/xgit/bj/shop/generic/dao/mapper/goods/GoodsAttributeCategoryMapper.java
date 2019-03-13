@@ -26,6 +26,8 @@ public interface GoodsAttributeCategoryMapper  extends BaseMapper<GoodsAttribute
 
     int deleteByPrimaryKeySelective(Long id);
 
+    int batchDeleteByIds(@Param(value = "ids") List<Long> ids);
+
     List<GoodsAttributeCategoryDO> queryListByIds(@Param(value = "ids") List<Long> ids);
 
 }

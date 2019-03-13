@@ -148,11 +148,7 @@ public class GoodsBrandService  extends BaseService<GoodsBrandVO, GoodsBrandDO> 
             if (CollectionUtils.isEmpty(ids)){
                 return 0;
             }
-            int i=0;
-            for(Long id:ids){
-              i =+ goodsBrandMapper.deleteByPrimaryKeySelective(id);
-            }
-            return i;
+            return goodsBrandMapper.batchDeleteByIds(ids);
         }
 
 }
