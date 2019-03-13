@@ -22,7 +22,7 @@ public class GoodsDO  implements Serializable{
     //运费模板
     private Long feightTemplateId;
     //属性分类id
-    private Long productAttributeCategoryId;
+    private Long goodsAttributeCategoryId;
     //名称
     private String name;
     //图片
@@ -96,7 +96,7 @@ public class GoodsDO  implements Serializable{
     //品牌名称
     private String brandName;
     //商品分类名称
-    private String productCategoryName;
+    private String goodsCategoryName;
     //创建人
     private String dbCreateAuthor;
     //创建时间

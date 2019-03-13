@@ -5,9 +5,9 @@
     <resultMap id="BaseResultMap" type="com.xgit.bj.shop.generic.dao.entity.goods.GoodsDO">
             <id column="id" property="id" jdbcType="BIGINT"/>
             <result column="brand_id" property="brandId" jdbcType="BIGINT"/>
-            <result column="product_category_id" property="productCategoryId" jdbcType="BIGINT"/>
+            <result column="goods_category_id" property="goodsCategoryId" jdbcType="BIGINT"/>
             <result column="feight_template_id" property="feightTemplateId" jdbcType="BIGINT"/>
-            <result column="product_attribute_category_id" property="productAttributeCategoryId" jdbcType="BIGINT"/>
+            <result column="goods_attribute_category_id" property="goodsAttributeCategoryId" jdbcType="BIGINT"/>
             <result column="name" property="name" jdbcType="VARCHAR"/>
             <result column="pic" property="pic" jdbcType="VARCHAR"/>
             <result column="goods_sn" property="goodsSn" jdbcType="VARCHAR"/>
@@ -44,7 +44,7 @@
             <result column="promotion_per_limit" property="promotionPerLimit" jdbcType="INTEGER"/>
             <result column="promotion_type" property="promotionType" jdbcType="INTEGER"/>
             <result column="brand_name" property="brandName" jdbcType="VARCHAR"/>
-            <result column="product_category_name" property="productCategoryName" jdbcType="VARCHAR"/>
+            <result column="goods_category_name" property="goodsCategoryName" jdbcType="VARCHAR"/>
             <result column="db_create_author" property="dbCreateAuthor" jdbcType="VARCHAR"/>
             <result column="db_create_time" property="dbCreateTime" jdbcType="TIMESTAMP"/>
             <result column="db_update_author" property="dbUpdateAuthor" jdbcType="VARCHAR"/>
@@ -53,11 +53,11 @@
 
 
     <sql id="Base_Column_List">
-        id,brand_id,product_category_id,feight_template_id,product_attribute_category_id,name,pic,goods_sn,delete_status,publish_status,
+        id,brand_id,goods_category_id,feight_template_id,goods_attribute_category_id,name,pic,goods_sn,delete_status,publish_status,
         new_status,recommand_status,verify_status,sort,sale,price,promotion_price,gift_growth,gift_point,use_point_limit,
         sub_title,description,original_price,stock,low_stock,unit,weight,preview_status,service_ids,keywords,
         note,album_pics,detail_title,detail_desc,detail_html,detail_mobile_html,promotion_start_time,promotion_end_time,promotion_per_limit,promotion_type,
-        brand_name,product_category_name,db_create_author,db_create_time,db_update_author,db_update_time
+        brand_name,goods_category_name,db_create_author,db_create_time,db_update_author,db_update_time
     </sql>
 
     <sql id="cond">
@@ -71,14 +71,14 @@
             <if test="brandId != null">
                 and  brand_id =#{brandId,jdbcType=BIGINT}
             </if>
-            <if test="productCategoryId != null">
-                and  product_category_id =#{productCategoryId,jdbcType=BIGINT}
+            <if test="goodsCategoryId != null">
+                and  goods_category_id =#{goodsCategoryId,jdbcType=BIGINT}
             </if>
             <if test="feightTemplateId != null">
                 and  feight_template_id =#{feightTemplateId,jdbcType=BIGINT}
             </if>
-            <if test="productAttributeCategoryId != null">
-                and  product_attribute_category_id =#{productAttributeCategoryId,jdbcType=BIGINT}
+            <if test="goodsAttributeCategoryId != null">
+                and  goods_attribute_category_id =#{goodsAttributeCategoryId,jdbcType=BIGINT}
             </if>
             <if test="name != null and name != ''">
                 and  name =#{name,jdbcType=VARCHAR}
@@ -188,8 +188,8 @@
             <if test="brandName != null and brandName != ''">
                 and  brand_name =#{brandName,jdbcType=VARCHAR}
             </if>
-            <if test="productCategoryName != null and productCategoryName != ''">
-                and  product_category_name =#{productCategoryName,jdbcType=VARCHAR}
+            <if test="goodsCategoryName != null and goodsCategoryName != ''">
+                and  goods_category_name =#{goodsCategoryName,jdbcType=VARCHAR}
             </if>
             <if test="dbCreateAuthor != null and dbCreateAuthor != ''">
                 and  db_create_author =#{dbCreateAuthor,jdbcType=VARCHAR}
@@ -246,14 +246,14 @@
 
     <insert id="insert" parameterType="com.xgit.bj.shop.generic.dao.entity.goods.GoodsDO"  useGeneratedKeys="true" keyProperty="id">
         insert into t_goods (
-        id,brand_id,product_category_id,feight_template_id,product_attribute_category_id,name,pic,goods_sn,delete_status,publish_status,
+        id,brand_id,goods_category_id,feight_template_id,goods_attribute_category_id,name,pic,goods_sn,delete_status,publish_status,
         new_status,recommand_status,verify_status,sort,sale,price,promotion_price,gift_growth,gift_point,use_point_limit,
         sub_title,description,original_price,stock,low_stock,unit,weight,preview_status,service_ids,keywords,
         note,album_pics,detail_title,detail_desc,detail_html,detail_mobile_html,promotion_start_time,promotion_end_time,promotion_per_limit,promotion_type,
-        brand_name,product_category_name,db_create_author,db_create_time,db_update_author,db_update_time
+        brand_name,goods_category_name,db_create_author,db_create_time,db_update_author,db_update_time
         )
         values (
-         #{id,jdbcType=BIGINT},#{brandId,jdbcType=BIGINT},#{productCategoryId,jdbcType=BIGINT},#{feightTemplateId,jdbcType=BIGINT},#{productAttributeCategoryId,jdbcType=BIGINT},
+         #{id,jdbcType=BIGINT},#{brandId,jdbcType=BIGINT},#{goodsCategoryId,jdbcType=BIGINT},#{feightTemplateId,jdbcType=BIGINT},#{goodsAttributeCategoryId,jdbcType=BIGINT},
          #{name,jdbcType=VARCHAR},#{pic,jdbcType=VARCHAR},#{goodsSn,jdbcType=VARCHAR},#{deleteStatus,jdbcType=INTEGER},#{publishStatus,jdbcType=INTEGER},
          #{newStatus,jdbcType=INTEGER},#{recommandStatus,jdbcType=INTEGER},#{verifyStatus,jdbcType=INTEGER},#{sort,jdbcType=BIGINT},#{sale,jdbcType=INTEGER},
          #{price,jdbcType=DECIMAL},#{promotionPrice,jdbcType=BIGINT},#{giftGrowth,jdbcType=INTEGER},#{giftPoint,jdbcType=INTEGER},#{usePointLimit,jdbcType=INTEGER},
@@ -261,19 +261,19 @@
          #{unit,jdbcType=VARCHAR},#{weight,jdbcType=BIGINT},#{previewStatus,jdbcType=INTEGER},#{serviceIds,jdbcType=VARCHAR},#{keywords,jdbcType=VARCHAR},
          #{note,jdbcType=VARCHAR},#{albumPics,jdbcType=VARCHAR},#{detailTitle,jdbcType=VARCHAR},#{detailDesc,jdbcType=VARCHAR},#{detailHtml,jdbcType=VARCHAR},
          #{detailMobileHtml,jdbcType=VARCHAR},#{promotionStartTime,jdbcType=TIMESTAMP},#{promotionEndTime,jdbcType=TIMESTAMP},#{promotionPerLimit,jdbcType=INTEGER},#{promotionType,jdbcType=INTEGER},
-         #{brandName,jdbcType=VARCHAR},#{productCategoryName,jdbcType=VARCHAR},#{dbCreateAuthor,jdbcType=VARCHAR},#{dbCreateTime,jdbcType=TIMESTAMP},#{dbUpdateAuthor,jdbcType=VARCHAR},
+         #{brandName,jdbcType=VARCHAR},#{goodsCategoryName,jdbcType=VARCHAR},#{dbCreateAuthor,jdbcType=VARCHAR},#{dbCreateTime,jdbcType=TIMESTAMP},#{dbUpdateAuthor,jdbcType=VARCHAR},
          #{dbUpdateTime,jdbcType=TIMESTAMP}
         )
     </insert>
 
     <insert id="batchInsert" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
         insert into `t_goods` (
-        id,brand_id,product_category_id,feight_template_id,product_attribute_category_id,name,pic,goods_sn,delete_status,publish_status,new_status,recommand_status,verify_status,sort,sale,price,promotion_price,gift_growth,gift_point,use_point_limit,sub_title,description,original_price,stock,low_stock,unit,weight,preview_status,service_ids,keywords,note,album_pics,detail_title,detail_desc,detail_html,detail_mobile_html,promotion_start_time,promotion_end_time,promotion_per_limit,promotion_type,brand_name,product_category_name,db_create_author,db_create_time,db_update_author,db_update_time
+        id,brand_id,goods_category_id,feight_template_id,goods_attribute_category_id,name,pic,goods_sn,delete_status,publish_status,new_status,recommand_status,verify_status,sort,sale,price,promotion_price,gift_growth,gift_point,use_point_limit,sub_title,description,original_price,stock,low_stock,unit,weight,preview_status,service_ids,keywords,note,album_pics,detail_title,detail_desc,detail_html,detail_mobile_html,promotion_start_time,promotion_end_time,promotion_per_limit,promotion_type,brand_name,goods_category_name,db_create_author,db_create_time,db_update_author,db_update_time
         )
         values
         <foreach collection="list" item="item" index="index" separator=",">
             (
-            #{item.id,jdbcType=BIGINT},#{item.brandId,jdbcType=BIGINT},#{item.productCategoryId,jdbcType=BIGINT},#{item.feightTemplateId,jdbcType=BIGINT},#{item.productAttributeCategoryId,jdbcType=BIGINT},
+            #{item.id,jdbcType=BIGINT},#{item.brandId,jdbcType=BIGINT},#{item.goodsCategoryId,jdbcType=BIGINT},#{item.feightTemplateId,jdbcType=BIGINT},#{item.goodsAttributeCategoryId,jdbcType=BIGINT},
                 #{item.name,jdbcType=VARCHAR},#{item.pic,jdbcType=VARCHAR},#{item.goodsSn,jdbcType=VARCHAR},#{item.deleteStatus,jdbcType=INTEGER},#{item.publishStatus,jdbcType=INTEGER},
                 #{item.newStatus,jdbcType=INTEGER},#{item.recommandStatus,jdbcType=INTEGER},#{item.verifyStatus,jdbcType=INTEGER},#{item.sort,jdbcType=BIGINT},#{item.sale,jdbcType=INTEGER},
                 #{item.price,jdbcType=DECIMAL},#{item.promotionPrice,jdbcType=BIGINT},#{item.giftGrowth,jdbcType=INTEGER},#{item.giftPoint,jdbcType=INTEGER},#{item.usePointLimit,jdbcType=INTEGER},
@@ -281,7 +281,7 @@
                 #{item.unit,jdbcType=VARCHAR},#{item.weight,jdbcType=BIGINT},#{item.previewStatus,jdbcType=INTEGER},#{item.serviceIds,jdbcType=VARCHAR},#{item.keywords,jdbcType=VARCHAR},
                 #{item.note,jdbcType=VARCHAR},#{item.albumPics,jdbcType=VARCHAR},#{item.detailTitle,jdbcType=VARCHAR},#{item.detailDesc,jdbcType=VARCHAR},#{item.detailHtml,jdbcType=VARCHAR},
                 #{item.detailMobileHtml,jdbcType=VARCHAR},#{item.promotionStartTime,jdbcType=TIMESTAMP},#{item.promotionEndTime,jdbcType=TIMESTAMP},#{item.promotionPerLimit,jdbcType=INTEGER},#{item.promotionType,jdbcType=INTEGER},
-                #{item.brandName,jdbcType=VARCHAR},#{item.productCategoryName,jdbcType=VARCHAR},#{item.dbCreateAuthor,jdbcType=VARCHAR},#{item.dbCreateTime,jdbcType=TIMESTAMP},#{item.dbUpdateAuthor,jdbcType=VARCHAR},
+                #{item.brandName,jdbcType=VARCHAR},#{item.goodsCategoryName,jdbcType=VARCHAR},#{item.dbCreateAuthor,jdbcType=VARCHAR},#{item.dbCreateTime,jdbcType=TIMESTAMP},#{item.dbUpdateAuthor,jdbcType=VARCHAR},
                 #{item.dbUpdateTime,jdbcType=TIMESTAMP}
             )
         </foreach>
@@ -300,14 +300,14 @@
             <if test="brandId != null">
                 brand_id =#{brandId,jdbcType=BIGINT},
             </if>
-            <if test="productCategoryId != null">
-                product_category_id =#{productCategoryId,jdbcType=BIGINT},
+            <if test="goodsCategoryId != null">
+                goods_category_id =#{goodsCategoryId,jdbcType=BIGINT},
             </if>
             <if test="feightTemplateId != null">
                 feight_template_id =#{feightTemplateId,jdbcType=BIGINT},
             </if>
-            <if test="productAttributeCategoryId != null">
-                product_attribute_category_id =#{productAttributeCategoryId,jdbcType=BIGINT},
+            <if test="goodsAttributeCategoryId != null">
+                goods_attribute_category_id =#{goodsAttributeCategoryId,jdbcType=BIGINT},
             </if>
             <if test="name != null">
                 name =#{name,jdbcType=VARCHAR},
@@ -417,8 +417,8 @@
             <if test="brandName != null">
                 brand_name =#{brandName,jdbcType=VARCHAR},
             </if>
-            <if test="productCategoryName != null">
-                product_category_name =#{productCategoryName,jdbcType=VARCHAR},
+            <if test="goodsCategoryName != null">
+                goods_category_name =#{goodsCategoryName,jdbcType=VARCHAR},
             </if>
             <if test="dbCreateAuthor != null">
                 db_create_author =#{dbCreateAuthor,jdbcType=VARCHAR},
@@ -435,14 +435,14 @@
         </set>
         WHEN NOT MATCHED THEN
         insert  (
-        id,brand_id,product_category_id,feight_template_id,product_attribute_category_id,name,pic,goods_sn,delete_status,publish_status,
+        id,brand_id,goods_category_id,feight_template_id,goods_attribute_category_id,name,pic,goods_sn,delete_status,publish_status,
         new_status,recommand_status,verify_status,sort,sale,price,promotion_price,gift_growth,gift_point,use_point_limit,
         sub_title,description,original_price,stock,low_stock,unit,weight,preview_status,service_ids,keywords,
         note,album_pics,detail_title,detail_desc,detail_html,detail_mobile_html,promotion_start_time,promotion_end_time,promotion_per_limit,promotion_type,
-        brand_name,product_category_name,db_create_author,db_create_time,db_update_author,db_update_time
+        brand_name,goods_category_name,db_create_author,db_create_time,db_update_author,db_update_time
         )
         values (
-        #{id,jdbcType=BIGINT},#{brandId,jdbcType=BIGINT},#{productCategoryId,jdbcType=BIGINT},#{feightTemplateId,jdbcType=BIGINT},#{productAttributeCategoryId,jdbcType=BIGINT},
+        #{id,jdbcType=BIGINT},#{brandId,jdbcType=BIGINT},#{goodsCategoryId,jdbcType=BIGINT},#{feightTemplateId,jdbcType=BIGINT},#{goodsAttributeCategoryId,jdbcType=BIGINT},
         #{name,jdbcType=VARCHAR},#{pic,jdbcType=VARCHAR},#{goodsSn,jdbcType=VARCHAR},#{deleteStatus,jdbcType=INTEGER},#{publishStatus,jdbcType=INTEGER},
         #{newStatus,jdbcType=INTEGER},#{recommandStatus,jdbcType=INTEGER},#{verifyStatus,jdbcType=INTEGER},#{sort,jdbcType=BIGINT},#{sale,jdbcType=INTEGER},
         #{price,jdbcType=DECIMAL},#{promotionPrice,jdbcType=BIGINT},#{giftGrowth,jdbcType=INTEGER},#{giftPoint,jdbcType=INTEGER},#{usePointLimit,jdbcType=INTEGER},
@@ -450,21 +450,21 @@
         #{unit,jdbcType=VARCHAR},#{weight,jdbcType=BIGINT},#{previewStatus,jdbcType=INTEGER},#{serviceIds,jdbcType=VARCHAR},#{keywords,jdbcType=VARCHAR},
         #{note,jdbcType=VARCHAR},#{albumPics,jdbcType=VARCHAR},#{detailTitle,jdbcType=VARCHAR},#{detailDesc,jdbcType=VARCHAR},#{detailHtml,jdbcType=VARCHAR},
         #{detailMobileHtml,jdbcType=VARCHAR},#{promotionStartTime,jdbcType=TIMESTAMP},#{promotionEndTime,jdbcType=TIMESTAMP},#{promotionPerLimit,jdbcType=INTEGER},#{promotionType,jdbcType=INTEGER},
-        #{brandName,jdbcType=VARCHAR},#{productCategoryName,jdbcType=VARCHAR},#{dbCreateAuthor,jdbcType=VARCHAR},#{dbCreateTime,jdbcType=TIMESTAMP},#{dbUpdateAuthor,jdbcType=VARCHAR},
+        #{brandName,jdbcType=VARCHAR},#{goodsCategoryName,jdbcType=VARCHAR},#{dbCreateAuthor,jdbcType=VARCHAR},#{dbCreateTime,jdbcType=TIMESTAMP},#{dbUpdateAuthor,jdbcType=VARCHAR},
         #{dbUpdateTime,jdbcType=TIMESTAMP}
         )
     </update>
     <!--todo 待验证-->
     <update id="mergeMsql" parameterType="com.xgit.bj.shop.generic.dao.entity.goods.GoodsDO">
         insert  (
-        id,brand_id,product_category_id,feight_template_id,product_attribute_category_id,name,pic,goods_sn,delete_status,publish_status,
+        id,brand_id,goods_category_id,feight_template_id,goods_attribute_category_id,name,pic,goods_sn,delete_status,publish_status,
             new_status,recommand_status,verify_status,sort,sale,price,promotion_price,gift_growth,gift_point,use_point_limit,
             sub_title,description,original_price,stock,low_stock,unit,weight,preview_status,service_ids,keywords,
             note,album_pics,detail_title,detail_desc,detail_html,detail_mobile_html,promotion_start_time,promotion_end_time,promotion_per_limit,promotion_type,
-            brand_name,product_category_name,db_create_author,db_create_time,db_update_author,db_update_time
+            brand_name,goods_category_name,db_create_author,db_create_time,db_update_author,db_update_time
         )
         values (
-        #{id,jdbcType=BIGINT},#{brandId,jdbcType=BIGINT},#{productCategoryId,jdbcType=BIGINT},#{feightTemplateId,jdbcType=BIGINT},#{productAttributeCategoryId,jdbcType=BIGINT},
+        #{id,jdbcType=BIGINT},#{brandId,jdbcType=BIGINT},#{goodsCategoryId,jdbcType=BIGINT},#{feightTemplateId,jdbcType=BIGINT},#{goodsAttributeCategoryId,jdbcType=BIGINT},
             #{name,jdbcType=VARCHAR},#{pic,jdbcType=VARCHAR},#{goodsSn,jdbcType=VARCHAR},#{deleteStatus,jdbcType=INTEGER},#{publishStatus,jdbcType=INTEGER},
             #{newStatus,jdbcType=INTEGER},#{recommandStatus,jdbcType=INTEGER},#{verifyStatus,jdbcType=INTEGER},#{sort,jdbcType=BIGINT},#{sale,jdbcType=INTEGER},
             #{price,jdbcType=DECIMAL},#{promotionPrice,jdbcType=BIGINT},#{giftGrowth,jdbcType=INTEGER},#{giftPoint,jdbcType=INTEGER},#{usePointLimit,jdbcType=INTEGER},
@@ -472,7 +472,7 @@
             #{unit,jdbcType=VARCHAR},#{weight,jdbcType=BIGINT},#{previewStatus,jdbcType=INTEGER},#{serviceIds,jdbcType=VARCHAR},#{keywords,jdbcType=VARCHAR},
             #{note,jdbcType=VARCHAR},#{albumPics,jdbcType=VARCHAR},#{detailTitle,jdbcType=VARCHAR},#{detailDesc,jdbcType=VARCHAR},#{detailHtml,jdbcType=VARCHAR},
             #{detailMobileHtml,jdbcType=VARCHAR},#{promotionStartTime,jdbcType=TIMESTAMP},#{promotionEndTime,jdbcType=TIMESTAMP},#{promotionPerLimit,jdbcType=INTEGER},#{promotionType,jdbcType=INTEGER},
-            #{brandName,jdbcType=VARCHAR},#{productCategoryName,jdbcType=VARCHAR},#{dbCreateAuthor,jdbcType=VARCHAR},#{dbCreateTime,jdbcType=TIMESTAMP},#{dbUpdateAuthor,jdbcType=VARCHAR},
+            #{brandName,jdbcType=VARCHAR},#{goodsCategoryName,jdbcType=VARCHAR},#{dbCreateAuthor,jdbcType=VARCHAR},#{dbCreateTime,jdbcType=TIMESTAMP},#{dbUpdateAuthor,jdbcType=VARCHAR},
             #{dbUpdateTime,jdbcType=TIMESTAMP}
         )
         ON duplicate KEY UPDATE
@@ -483,14 +483,14 @@
             <if test="brandId != null">
                 brand_id =#{brandId,jdbcType=BIGINT},
             </if>
-            <if test="productCategoryId != null">
-                product_category_id =#{productCategoryId,jdbcType=BIGINT},
+            <if test="goodsCategoryId != null">
+                goods_category_id =#{goodsCategoryId,jdbcType=BIGINT},
             </if>
             <if test="feightTemplateId != null">
                 feight_template_id =#{feightTemplateId,jdbcType=BIGINT},
             </if>
-            <if test="productAttributeCategoryId != null">
-                product_attribute_category_id =#{productAttributeCategoryId,jdbcType=BIGINT},
+            <if test="goodsAttributeCategoryId != null">
+                goods_attribute_category_id =#{goodsAttributeCategoryId,jdbcType=BIGINT},
             </if>
             <if test="name != null">
                 name =#{name,jdbcType=VARCHAR},
@@ -600,8 +600,8 @@
             <if test="brandName != null">
                 brand_name =#{brandName,jdbcType=VARCHAR},
             </if>
-            <if test="productCategoryName != null">
-                product_category_name =#{productCategoryName,jdbcType=VARCHAR},
+            <if test="goodsCategoryName != null">
+                goods_category_name =#{goodsCategoryName,jdbcType=VARCHAR},
             </if>
             <if test="dbCreateAuthor != null">
                 db_create_author =#{dbCreateAuthor,jdbcType=VARCHAR},
@@ -627,14 +627,14 @@
             <if test="brandId != null">
                 brand_id =#{brandId,jdbcType=BIGINT},
             </if>
-            <if test="productCategoryId != null">
-                product_category_id =#{productCategoryId,jdbcType=BIGINT},
+            <if test="goodsCategoryId != null">
+                goods_category_id =#{goodsCategoryId,jdbcType=BIGINT},
             </if>
             <if test="feightTemplateId != null">
                 feight_template_id =#{feightTemplateId,jdbcType=BIGINT},
             </if>
-            <if test="productAttributeCategoryId != null">
-                product_attribute_category_id =#{productAttributeCategoryId,jdbcType=BIGINT},
+            <if test="goodsAttributeCategoryId != null">
+                goods_attribute_category_id =#{goodsAttributeCategoryId,jdbcType=BIGINT},
             </if>
             <if test="name != null">
                 name =#{name,jdbcType=VARCHAR},
@@ -744,8 +744,8 @@
             <if test="brandName != null">
                 brand_name =#{brandName,jdbcType=VARCHAR},
             </if>
-            <if test="productCategoryName != null">
-                product_category_name =#{productCategoryName,jdbcType=VARCHAR},
+            <if test="goodsCategoryName != null">
+                goods_category_name =#{goodsCategoryName,jdbcType=VARCHAR},
             </if>
             <if test="dbCreateAuthor != null">
                 db_create_author =#{dbCreateAuthor,jdbcType=VARCHAR},

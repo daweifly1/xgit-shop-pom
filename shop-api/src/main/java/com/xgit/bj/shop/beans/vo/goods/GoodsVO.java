@@ -22,7 +22,7 @@ public class GoodsVO  implements Serializable{
     @ApiModelProperty(value = "运费模板")
     private Long feightTemplateId;
     @ApiModelProperty(value = "属性分类id")
-    private Long productAttributeCategoryId;
+    private Long goodsAttributeCategoryId;
     @ApiModelProperty(value = "名称")
     private String name;
     @ApiModelProperty(value = "图片")
@@ -96,7 +96,7 @@ public class GoodsVO  implements Serializable{
     @ApiModelProperty(value = "品牌名称")
     private String brandName;
     @ApiModelProperty(value = "商品分类名称")
-    private String productCategoryName;
+    private String goodsCategoryName;
     @ApiModelProperty(value = "创建人")
     private String dbCreateAuthor;
     @ApiModelProperty(value = "创建时间")

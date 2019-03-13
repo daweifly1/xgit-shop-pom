@@ -89,7 +89,7 @@
     </delete>
 
     <delete id="deleteByGoodsId" parameterType="java.lang.Long">
-        delete from t_goods_attribute_img where goods_id = #{id}
+        delete from t_goods_attribute_img where goods_id = #{goodsId}
     </delete>
 
 

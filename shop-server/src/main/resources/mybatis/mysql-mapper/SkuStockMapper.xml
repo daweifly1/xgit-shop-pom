@@ -125,7 +125,7 @@
        )
     </delete>
 
-    <delete id="deleteByPrimaryKeySelective" parameterType="java.lang.Long">
+    <delete id="deleteByGoodsId" parameterType="java.lang.Long">
         delete from t_sku_stock where goods_id = #{goodsId}
     </delete>
 
