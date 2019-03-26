@@ -6,11 +6,13 @@ import com.xgit.bj.core.rsp.PageCommonVO;
 import com.xgit.bj.core.rsp.SearchCommonVO;
 import com.xgit.bj.shop.framework.consts.ErrorCode;
 import com.xgit.bj.shop.generic.dao.mapper.base.BaseMapper;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public class BaseService<V, D> extends BaseTransVODOService<V, D> { BaseMapper<V, D> baseMapper;
+public class BaseService<V, D> extends BaseTransVODOService<V, D> {
+    BaseMapper<V, D> baseMapper;
 
     protected BaseService(Class<V> vClass, Class<D> dClass) {
         super(vClass, dClass);
@@ -29,8 +31,8 @@ public class BaseService<V, D> extends BaseTransVODOService<V, D> { BaseMapper<V
 
     public PageCommonVO list(SearchCommonVO<V> condition) {
         PageCommonVO pageCommonVO = new PageCommonVO();
-        if (null != condition.getOrderBy()) {
-            PageHelper.orderBy(condition.getOrderBy());
+        if (StringUtils.isNotBlank(condition.getOrderBy())) {
+            PageHelper.orderBy(genColum(condition.getOrderBy()));
         } else {
             PageHelper.orderBy("id ");
         }
@@ -40,6 +42,13 @@ public class BaseService<V, D> extends BaseTransVODOService<V, D> { BaseMapper<V
         pageCommonVO.setPageInfo(new PageInfo(doList));
         pageCommonVO.setPageInfoList(voList);
         return pageCommonVO;
+    }
+
+    private static String genColum(String str) {
+        if (str.trim().equalsIgnoreCase("ID")) {
+            return str;
+        }
+        return str.replaceAll("[A-Z]", "_$0").toUpperCase();
     }
 
     @Transactional
